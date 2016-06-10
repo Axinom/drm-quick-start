@@ -1,16 +1,6 @@
 # Axinom DRM - quick start
 This guide will show you how you can start using Axinom DRM to protect and play back premium video content.
 
-TODO
-
-It is structured in the following chapters:
-
-1. An overview of modern DRM architecture.
-1. Using a sample project with everything already set up.
-1. Creating and protecting your own videos.
-1. Customizing the DRM configuration.
-1. Key management and security practices.
-
 # Basic concepts of DRM
 
 This chapter presents a high-level functional view of DRM concepts. Understand that there is a lot more happening under the covers, especially in the realm of security and key management.
