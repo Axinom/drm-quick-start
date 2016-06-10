@@ -1,0 +1,26 @@
+{
+  "name": "drm-quick-start",
+  "version": "1.0.0",
+  "description": "Sample project and quick start guide for Axinom DRM",
+  "main": "Main.js",
+  "author": "Axinom",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "eslint": "^2.11.1",
+    "eslint-config-axinom": "^1.0.3"
+  },
+  "eslintConfig": {
+    "extends": "axinom",
+    "rules": {
+      "new-cap": [
+        2,
+        {
+          "capIsNew": false
+        }
+      ]
+    }
+  }
+}

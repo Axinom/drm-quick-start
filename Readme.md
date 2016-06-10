@@ -32,3 +32,28 @@ The Axinom DRM **license server** will give a license to every player who can pr
 The Axinom DRM product suite includes both a license server and a key server, offered as cloud services. The remaining parts of a DRM-enabled solution must be either 3rd party products or custom developed components.
 
 You will want to use a robust and reliable player that provides an optimal playback experience. [dash.js](https://github.com/Dash-Industry-Forum/dash.js) integrates natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - contact Axinom for detailed player evaluation guidance.
+
+# Sample scenario 1: ready to go
+
+In the first scenario we explore, everything has been prepared for you - there exists a small website that has a single video that you can watch. All DRM information has been prepared for you and hardcoded into the application.
+
+Follow the instructions below to run this sample project and go through the first sample scenario.
+
+1. Install [node.js](https://nodejs.org) 
+1. Clone or download this Git repository (the one that you are currently reading).
+1. Open a terminal or command prompt window and go to the directory where you placed the repository's files (e.g. *C:\Source\drm-quick-start*).
+1. Install required 3rd party packages by executing the following command: *npm install*
+1. Run the application by executing the following command: *node Main.js*
+1. If everything went well, the output from this command will give you the URL to open in your browser. It should be something like http://localhost:8120
+
+The first sample scenario is very simple - once you open the website, there is a single link presented to you. Clicking on this link will play a protected video using Axinom DRM, assuming you open it in a DRM-capable browser.
+
+## Understanding sample scenario 1
+
+The code is thoroughly commented, so here is only a high-level overview. To understand the details, explore the source code!
+
+TODO 
+
+# Security omissions in sample code
+
+To keep the sample code simple and straightforward, many critical website security measures are omitted (e.g. mandatory HTTPS, CSRF protection, any actual login/authentication). This is intentional, as the goal of the sample is to showcase interactions with Axinom DRM and the security of the website itself is not in focus.
