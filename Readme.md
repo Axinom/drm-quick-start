@@ -21,7 +21,7 @@ The media samples in a protected video are encrypted with one or more **content 
 
 ![](Images/Concepts - license.png)
 
-To play the video, a DRM-capable player needs to decrypt the media samples. For this, it needs access to the concent keys, which are delivered in a **license** that also defines the conditions under which the content keys may be used (e.g. expiration).
+To play the video, a DRM-capable player needs to decrypt the media samples. For this, it needs access to the content keys, which are delivered in a **license** that also defines the conditions under which the content keys may be used (e.g. expiration).
 
 ![](Images/Concepts - license acquisition.png)
 
