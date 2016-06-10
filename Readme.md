@@ -174,9 +174,7 @@ That's it! You can now start the application, open the website and play your vid
 
 If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) or in the terminal window.
 
-Follow the same process to play videos created with 3rd party tools. As each media processing product operates differently, universal instructions cannot be provided here. Contact Axinom for detailed support in setting up your media workflows. 
-
-# Sample scenario 4: enforcing content owner protection policies
+Follow the same process to play videos created with 3rd party tools. As each media processing product operates differently, universal instructions cannot be provided here. Contact Axinom for detailed support in setting up your media workflows.
 
 # Security omissions in sample code
 
