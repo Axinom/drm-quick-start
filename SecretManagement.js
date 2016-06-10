@@ -38,6 +38,9 @@
 			var communicationKeyBuffer = Buffer.from(secrets.communicationKey, 'hex');
 			if (communicationKeyBuffer.length !== COMMUNICATION_KEY_LENGTH_IN_BYTES)
 				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKey did not contain " + COMMUNICATION_KEY_LENGTH_IN_BYTES + " bytes of hex-encoded data.");
+
+			if (secrets.tenantId === "0d6309a9-dd87-4850-8cf2-611117a651c4")
+				throw new Error("You need to replace the example values in " + SECRETS_FILE_NAME + " with your own!");
 		}
 	};
 })();

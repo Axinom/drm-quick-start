@@ -19,16 +19,16 @@
 			// This API call returns the license token for playing back a video.
 			// The web app provides the name of the video as a parameter in the URL.
 			router.get("/:videoName", function processGet(request, response) {
-				// TODO: Check if the user is actually authorized to watch this video. For example, you could
-				// check a database of purchases to see if the currently logged-in user made a relevant purchase
-				// for this product. For demo purposes, however, everyone is always authorized to watch every video.
-
 				let video = videoDatabase.getVideoByName(request.params.videoName);
 
 				if (!video) {
 					response.status(NO_SUCH_VIDEO_STATUS_CODE).send("No such video");
 					return;
 				}
+
+				// TODO: Check here if the user is actually authorized to watch this video. For example, you could
+				// check a database of purchases to see if the currently logged-in user made a relevant purchase
+				// for this product. For demo purposes, however, everyone is always authorized to watch every video.
 
 				if (video.licenseToken) {
 					// If the video has a license token hardcoded, just give that to all callers.
@@ -61,16 +61,21 @@
 				let validTo = now.clone().add(1, "days");
 
 				// For detailed information about these fields, refer to Axinom DRM documentation.
+				// There exist many possibilities for further customization of the license token - the settings
+				// shown here are only the bare minimum to create a license token suitable for realistic use.
 				let message = {
 					"type": "entitlement_message",
 					"begin_date": validFrom.toISOString(),
 					"expiration_date": validTo.toISOString(),
 
-					// The keys list will be filled below.
+					// The keys list will be filled separately by the next code block.
 					"keys": [
 					]
 				};
 
+				// All the content keys in the license token are encrypted, of course, so they are not
+				// readable to any browser-side JavaScript code. There is no way to send content keys
+				// in the clear with Axinom DRM, even for testing purposes - encryption is always required.
 				video.keys.forEach(function (key) {
 					// The key is what we encrypt.
 					let keyAsBuffer = Buffer.from(key.key, "base64");
@@ -102,6 +107,7 @@
 
 				console.log("Creating license token with payload: " + JSON.stringify(envelope));
 
+				// The license token must be digitally signed to prove that it came from the authorization service.
 				let licenseToken = jwt.sign(envelope, communicationKeyAsBuffer, {
 					"algorithm": "HS256"
 				});

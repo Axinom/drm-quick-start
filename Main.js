@@ -25,4 +25,5 @@
     app.listen(WEBSERVER_PORT);
 
     console.log("The website is now available at http://localhost:" + WEBSERVER_PORT);
+    console.log("Press Control+C to shut down the application.");
 })();
