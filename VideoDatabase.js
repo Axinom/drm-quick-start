@@ -24,17 +24,6 @@
         },
         */
 
-        {
-            "name": "My video 1",
-            "url": "http://localhost:8120/Video1/Encrypted/Manifest.mpd",
-            "keys": [
-                {
-                    "keyId": "60447277-19b2-4367-a1e0-da543aee2da0",
-                    "key": "DnfNa6jat32yHlWbwnt7zQ=="
-                } 
-            ]
-        },
-
         // This is a special video that uses a pre-generated license token. For adding your
         // own videos to the list, copy-paste the custom video example above instead of this one.
         {
