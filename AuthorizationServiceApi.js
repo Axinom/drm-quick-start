@@ -77,17 +77,18 @@
 				// readable to any browser-side JavaScript code. There is no way to send content keys
 				// in the clear with Axinom DRM, even for testing purposes - encryption is always required.
 				video.keys.forEach(function (key) {
-					// The key is what we encrypt.
-					let keyAsBuffer = Buffer.from(key.key, "base64");
+					// The content key itself is what we encrypt.
+					let contentKeyAsBuffer = Buffer.from(key.key, "base64");
 
-					// The Key ID is the IV. Big-endian serialized.
+					// The Key ID is used as the IV, in big-endian serialized format.
 					let keyIdAsBuffer = Buffer.from(uuid.parse(key.keyId));
 
-					// The communication key is the encryption key we use.
+					// The communication key is the encryption key that secures the content key in transit.
 					let encryptor = crypto.createCipheriv("aes-256-cbc", communicationKeyAsBuffer, keyIdAsBuffer);
+					// No padding is to be used.
 					encryptor.setAutoPadding(false);
 
-					let encryptedKeyAsBuffer = encryptor.update(keyAsBuffer);
+					let encryptedKeyAsBuffer = encryptor.update(contentKeyAsBuffer);
 					encryptedKeyAsBuffer = Buffer.concat([encryptedKeyAsBuffer, encryptor.final()]);
 
 					message.keys.push({

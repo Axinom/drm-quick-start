@@ -85,9 +85,9 @@ The code is thoroughly commented, so the above is only a high-level overview. To
 
 In this scenario, we will modify the sample project to generate a unique license token upon every request, instead of returning a hardcoded license token.
 
-You will need an Axinom DRM evaluation account in order to proceed. Upon signing up, you will receive a document titled "Axinom DRM Fact Sheet" that will contain some information required below.
+You will need an [Axinom DRM evaluation account](http://drm.axinom.com/evaluation-account/) in order to proceed. Upon signing up, you will receive a document titled "Axinom DRM Fact Sheet" that will contain some information required below.
 
-First, open *VideoDatabase.js* and remove the hardcoded license token from "Axinom demo video", replacing it with a `keys` list that matches the data shown below.
+To modify the project for the second sample scenario, open *VideoDatabase.js* and remove the hardcoded license token from "Axinom demo video", replacing it with a `keys` list that matches the data shown below.
 
 ```
  {
@@ -106,7 +106,6 @@ Now, create a file *Secrets.json* based on the sample below and place it in the 
 
 ```
 {
-    "tenantId": "0d6309a9-dd87-4850-8cf2-611117a651c4",
     "communicationKeyId": "cffd95ba-aada-445b-b4ad-e8f322cf576a",
     "communicationKey": "092B1EFD61770602833E1621451A99092B1EFD61770602833E1621451A999999"
 }
@@ -120,7 +119,17 @@ That's all you need! The authorization service will now generate a unique licens
 
 If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) or in the terminal window.
 
+## Understanding sample scenario 2
+
+The logic for generating license tokens is already provided in *AuthorizationServiceApi.js* and this functionality is activated by the instructions above. In order to generate a license token, the authorization service needs to know the IDs and values of all keys that are to be made available to the user.
+
+*Note: this pattern of key management is simplified compared to actual production use. See the chapter on security below.* 
+
+The **communication key** secures the transfer of sensitive data (content keys) from the authorization service to the license server and authenticates the license token, making it impossible to forge. See the code in *AuthorizationServiceApi.js* to understand the details. 
+
 # Sample scenario 3: creating your own videos
+
+# Sample scenario 4: enforcing content owner protection policies
 
 # Security omissions in sample code
 

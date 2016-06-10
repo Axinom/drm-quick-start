@@ -28,8 +28,6 @@
 				secrets = require("./" + SECRETS_FILE_NAME);
 			}
 
-			if (!secrets.tenantId)
-				throw new Error(SECRETS_FILE_NAME + " validation failed: tenantId field is missing.");
 			if (!secrets.communicationKeyId)
 				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKeyId field is missing.");
 			if (!secrets.communicationKey)
@@ -39,7 +37,8 @@
 			if (communicationKeyBuffer.length !== COMMUNICATION_KEY_LENGTH_IN_BYTES)
 				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKey did not contain " + COMMUNICATION_KEY_LENGTH_IN_BYTES + " bytes of hex-encoded data.");
 
-			if (secrets.tenantId === "0d6309a9-dd87-4850-8cf2-611117a651c4")
+			if (secrets.communicationKeyId === "cffd95ba-aada-445b-b4ad-e8f322cf576a"
+				|| secrets.communicationKey === "092B1EFD61770602833E1621451A99092B1EFD61770602833E1621451A999999")
 				throw new Error("You need to replace the example values in " + SECRETS_FILE_NAME + " with your own!");
 		}
 	};
