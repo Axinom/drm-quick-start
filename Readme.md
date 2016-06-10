@@ -54,6 +54,22 @@ The code is thoroughly commented, so here is only a high-level overview. To unde
 
 TODO 
 
+# Sample scenario 2: creating your own license tokens
+
+Create a file Secrets.json with the content below and place it in the application's directory alongside Main.js. **Replace the example data below with real values from the Axinom DRM Fact Sheet you received after signing up for an evaluation account**.
+
+```
+{
+    "tenantId": "0d6309a9-dd87-4850-8cf2-611117a651c4",
+    "communicationKeyId": "cffd95ba-aada-445b-b4ad-e8f322cf576a",
+    "communicationKey": "092B1EFD61770602833E1621451A99092B1EFD61770602833E1621451A999999"
+}
+```
+
+# Sample scenario 3: creating your own videos
+
 # Security omissions in sample code
 
 To keep the sample code simple and straightforward, many critical website security measures are omitted (e.g. mandatory HTTPS, CSRF protection, any actual login/authentication). This is intentional, as the goal of the sample is to showcase interactions with Axinom DRM and the security of the website itself is not in focus.
+
+Furthermore, key management practices are deliberately simplified and the content keys are exposed to the authorization service. This is normally not acceptable from a security standpoint, as the content keys should only be visible to the key server and the license server in a production scenario.

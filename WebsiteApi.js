@@ -2,9 +2,10 @@
 	"use strict";
 
 	let express = require("express");
+	let videoDatabase = require("./VideoDatabase");
 
 	module.exports = {
-		"createRouter": function createRouter(videoDatabase) {
+		"createRouter": function createRouter() {
 			let router = express.Router();
 
 			// This API call returns a JSON list with basic info about all the videos on the website.

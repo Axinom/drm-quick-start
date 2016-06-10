@@ -6,7 +6,10 @@
   "author": "Axinom",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "jsonwebtoken": "^7.0.0",
+    "moment": "^2.13.0",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "eslint": "^2.11.1",
