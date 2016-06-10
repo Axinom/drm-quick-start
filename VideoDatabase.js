@@ -24,17 +24,6 @@
         },
         */
 
-        {
-            "name": "Axinom demo video with token generation",
-            "url": "http://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
-            "keys": [
-                {
-                    "keyId": "6e5a1d26-2757-47d7-8046-eaa5d1d34b5a",
-                    "key": "GX8m9XLIZNIzizrl0RTqnA=="
-                }
-            ]
-        },
-
         // This is a special video that uses a pre-generated license token. For adding your
         // own videos to the list, copy-paste the custom video example above instead of this one.
         {
