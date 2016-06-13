@@ -137,8 +137,6 @@ Before you can do anything with the video, you will need to generate a content k
 
 ![](Images/Sample - generate key.png)
 
-*Note: the process described here uses a single key for all tracks in the video. This may not always be appropriate, as more complex real-world scenarios require the use of multiple different keys for different tracks and quality levels of the same video.* 
-
 Now you are ready to start creating the video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
 
 ![](Images/Sample - makemedia.png)
