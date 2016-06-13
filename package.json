@@ -23,7 +23,8 @@
         {
           "capIsNew": false
         }
-      ]
+      ],
+      "no-process-env": 0
     }
   }
 }
