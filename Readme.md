@@ -86,7 +86,7 @@ To modify the project for the second sample scenario, open *VideoDatabase.js* an
 ```
  {
     "name": "Axinom demo video",
-    "url": "http://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
+    "url": "https://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
     "keys": [
         {
             "keyId": "6e5a1d26-2757-47d7-8046-eaa5d1d34b5a",

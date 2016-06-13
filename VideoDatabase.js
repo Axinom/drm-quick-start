@@ -9,7 +9,7 @@
         // Uncomment and copy-paste this block as an example for adding custom videos to the list.
         {
             "name": "My video 1",
-            "url": "http://example.com/Manifest.mpd",
+            "url": "https://example.com/Manifest.mpd",
             "keys": [
                 // NB! This sample contains the actual content keys for demo purposes only,
                 // as integration with a key server is out of scope of this sample. In a
@@ -28,7 +28,7 @@
         // own videos to the list, copy-paste the custom video example above instead of this one.
         {
             "name": "Axinom demo video",
-            "url": "http://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
+            "url": "https://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
             // This video has a hardcoded license token, for maximum ease of use of the sample app.
             // Never do this in production - always generate a new license token on every request.
             "licenseToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiNmU1YTFkMjYtMjc1Ny00N2Q3LTgwNDYtZWFhNWQxZDM0YjVhIn1dfX0.yF7PflOPv9qHnu3ZWJNZ12jgkqTabmwXbDWk_47tLNE"
