@@ -127,21 +127,23 @@ Makemedia system requirements:
 * 64-bit Windows operating system (Windows 10 recommended)
 * .NET Framework 4.6 or newer
 
-The sample project plays DASH videos but the scenario here also covers the video processing needed to transform videos into DASH, as you are unlikely to already possess suitable DASH test data. **The starting point for this scenario is an MP4 or MOV file containing both video and audio** - ensure that your video is in this format before continuing. You can download some free test content in this format from the [Blender Foundation](https://mango.blender.org/download/).
+**The starting point for this scenario is an MP4 or MOV file containing both video and audio** - ensure that your video is in this format before continuing. You can download some free test content in this format from the [Blender Foundation](https://mango.blender.org/download/). The steps below will transform this input video into a format suitable for playback.
 
 Before you can do anything with the video, you will need to generate a content key. The sample project includes a command line application for this. Simply execute the following command in the project directory: *node GenerateKey.js*
 
 ![](Images/Sample - generate key.png)
 
-*Note: the process described here uses a single key for all tracks in the video. This may not always be appropriate, though is sufficient for simpler real-world production scenarios.* 
+*Note: the process described here uses a single key for all tracks in the video. This may not always be appropriate, as more complex real-world scenarios require the use of multiple different keys for different tracks and quality levels of the same video.* 
 
-Now you are ready to start creating the DASH video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
+Now you are ready to start creating the video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
 
 ![](Images/Sample - makemedia.png)
 
 Wait for the video to be encoded, encrypted and packaged. This may take up to 24 hours for full-length movies, though only minutes for short clips.
 
 The output location will have two subdirectories: *Clear* and *Encrypted*. For diagnostic and troubleshooting purposes, a clear variant (without encryption) of your video is generated side-by-side with the encrypted variant.
+
+![](Images/Sample - clear and encrypted.png)
 
 The sample project website will correctly serve DASH videos if the output files are placed under the *Website* directory, as in the above example. You may also use external servers but as web servers require some configuration in order to correctly serve videos, using the sample project is the easiest option to start with.
 
@@ -168,6 +170,6 @@ Follow the same process to play videos created with 3rd party tools. As each med
 
 # Security omissions in sample code
 
-To keep the sample code simple and straightforward, many critical website security measures are omitted (e.g. mandatory HTTPS, CSRF protection, any actual login/authentication). This is intentional, as the goal of the sample is to showcase interactions with Axinom DRM and the security of the website itself is not in focus.
+To keep the sample code simple and straightforward, many critical website security measures are omitted (e.g. mandatory HTTPS, any actual login/authentication and more). This is intentional, as the goal of the sample is to showcase interactions with Axinom DRM and the security of the website itself is not a priority.
 
 Furthermore, key management practices are deliberately simplified and the content keys are exposed to the authorization service. This is normally not acceptable from a security standpoint, as the content keys should only be visible to the key server and the license server in a production scenario.
