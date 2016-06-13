@@ -37,9 +37,9 @@ Follow the instructions below to run this sample project and go through the firs
 ![](Images/Sample - start app.png)
 1. If everything went well, the output from this command will instruct you to open [http://localhost:8120](http://localhost:8120) in your browser. Do so.
 
-TODO: insert screenshot once website is less ugly
-
 The first sample scenario is very simple - once you open the website, there is a single "Axinom demo video" link presented to you. Clicking on this link will play a protected video. That's it - go give it a try!
+
+![](Images/Sample - website player.png)
 
 If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) or in the terminal window.
 
