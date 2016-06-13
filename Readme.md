@@ -23,7 +23,7 @@ The Axinom DRM product suite includes both a license server and a key server, of
 
 ![](Images/Solution components.png)
 
-You will want to use a robust and reliable player that provides an optimal playback experience. [dash.js](https://github.com/Dash-Industry-Forum/dash.js) integrates natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - contact Axinom for detailed player evaluation guidance.
+You will want to use a robust and reliable player that provides an optimal playback experience. [dash.js](https://github.com/Dash-Industry-Forum/dash.js) integrates natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - [Contact Axinom](mailto:info@axinom.com) for detailed player evaluation guidance.
 
 # Sample scenario 1: ready to go demo video
 
@@ -168,7 +168,7 @@ That's it! You can now start the application, open the website and play your vid
 
 If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) and in the command prompt window.
 
-Follow the same process to play videos created with 3rd party tools. As each media processing product operates differently, universal instructions cannot be provided here. Contact Axinom for detailed support in setting up your media workflows.
+Follow the same process to play videos created with 3rd party tools. As each media processing product operates differently, universal instructions cannot be provided here. [Contact Axinom](mailto:info@axinom.com) for detailed support in setting up your media workflows.
 
 # Moving onward to real-world usage
 
@@ -180,4 +180,4 @@ To keep the sample code simple and straightforward, various omissions and simpli
 * In a high-security production scenario, it is not desirable for the authorization service to have access to content keys. Instead, only the Axinom key server and Axinom license server should possess the content keys, with the authorization service embedding them into the license token using an encrypted key container. The relevant interactions are currently not demonstrated by this sample project.
 * Content owners may require you to use different keys for different tracks and quality levels, though this is usually only required when working with very high value content (e.g. Ultra-HD or 4K video). Ensure that your content production workflow is capable of this. 
 
-Contact Axinom for detailed support in setting up your production deployment.
+[Contact Axinom](mailto:info@axinom.com) for detailed support in setting up your production deployment.
