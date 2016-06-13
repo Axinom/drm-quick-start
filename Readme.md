@@ -19,7 +19,9 @@ The Axinom DRM **license server** will give a license to every player who can pr
 
 # Solution components and Axinom DRM
 
-The Axinom DRM product suite includes both a license server and a key server, offered as cloud services. The remaining parts of a DRM-enabled solution must be either 3rd party products or custom developed components.
+The Axinom DRM product suite includes both a license server and a key server, offered as cloud services. The remaining parts of a DRM-enabled solution must be either 3rd party products or custom developed components. The diagram below illustrates the most common setup.
+
+![](Images/Solution components.png)
 
 You will want to use a robust and reliable player that provides an optimal playback experience. [dash.js](https://github.com/Dash-Industry-Forum/dash.js) integrates natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - contact Axinom for detailed player evaluation guidance.
 
@@ -31,7 +33,7 @@ Follow the instructions below to run this sample project and go through the firs
 
 1. Install [node.js](https://nodejs.org) 
 1. Clone or download this Git repository (the one that you are currently reading).
-1. Open a terminal or command prompt window and go to the directory where you placed the repository's files (e.g. *C:\Source\drm-quick-start*).
+1. Open a command prompt window and go to the directory where you placed the repository's files (e.g. *C:\Source\drm-quick-start*).
 1. Install required 3rd party packages by executing the following command: *npm install*
 1. Run the application by executing the following command: *node Main.js*
 ![](Images/Sample - start app.png)
@@ -41,7 +43,7 @@ The first sample scenario is very simple - once you open the website, there is a
 
 ![](Images/Sample - website player.png)
 
-If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) or in the terminal window.
+If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) and in the command prompt window.
 
 ![](Images/Sample - JS console.png)
 
@@ -107,7 +109,7 @@ Having created the *Secrets.json* file, you should see a message about it being 
 
 That's all you need! The authorization service will now generate a unique license token upon every request. Run the application, open the website in a browser and go play the video!
 
-If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) or in the terminal window.
+If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) and in the command prompt window.
 
 ## Understanding sample scenario 2
 
@@ -164,7 +166,7 @@ Having created the video, add the relevant entry to *VideoDatabase.js*. You need
 
 That's it! You can now start the application, open the website and play your video!
 
-If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) or in the terminal window.
+If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) and in the command prompt window.
 
 Follow the same process to play videos created with 3rd party tools. As each media processing product operates differently, universal instructions cannot be provided here. Contact Axinom for detailed support in setting up your media workflows.
 
