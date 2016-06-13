@@ -20,10 +20,10 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="314.27880859375" width="351.0" x="234.0" y="487.72119140625"/>
+              <y:Geometry height="293.27880859375" width="332.0" x="234.0" y="487.72119140625"/>
               <y:Fill color="#F5F5F5" transparent="false"/>
               <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
-              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="351.0" x="0.0" y="0.0">License</y:NodeLabel>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="332.0" x="0.0" y="0.0">License</y:NodeLabel>
               <y:Shape type="roundrectangle"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
@@ -46,10 +46,10 @@
         <node id="n0::n0">
           <data key="d6">
             <y:ShapeNode>
-              <y:Geometry height="75.0" width="321.0" x="249.0" y="621.0"/>
+              <y:Geometry height="68.0" width="302.0" x="249.0" y="614.0"/>
               <y:Fill color="#FFCC00" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="62.8046875" modelName="custom" textColor="#000000" visible="true" width="290.8984375" x="15.05078125" y="6.09765625">Content key 2d94d1a1-5a89-447a-aeb6-32fd85f868fb
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="62.8046875" modelName="custom" textColor="#000000" visible="true" width="290.8984375" x="5.55078125" y="2.59765625">Content key 2d94d1a1-5a89-447a-aeb6-32fd85f868fb
 
 Value: E7dr/xcYLshkHCtWUtsl6w==
 Conditions: expires 24h after first use; HDCP required<y:LabelModel>
@@ -66,10 +66,10 @@ Conditions: expires 24h after first use; HDCP required<y:LabelModel>
         <node id="n0::n1">
           <data key="d6">
             <y:ShapeNode>
-              <y:Geometry height="75.0" width="321.0" x="249.0" y="530.0"/>
+              <y:Geometry height="68.0" width="302.0" x="249.0" y="530.0"/>
               <y:Fill color="#FFCC00" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="62.8046875" modelName="custom" textColor="#000000" visible="true" width="290.130859375" x="15.4345703125" y="6.09765625">Content key 76aa8160-f8db-43f7-b8a3-c966b4d7fcce
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="62.8046875" modelName="custom" textColor="#000000" visible="true" width="290.130859375" x="5.9345703125" y="2.59765625">Content key 76aa8160-f8db-43f7-b8a3-c966b4d7fcce
 
 Value: oaufMKrBThvsT4Jw/nU/og==
 Conditions: expires 24h after first use; HDCP required<y:LabelModel>
@@ -86,10 +86,10 @@ Conditions: expires 24h after first use; HDCP required<y:LabelModel>
         <node id="n0::n2">
           <data key="d6">
             <y:ShapeNode>
-              <y:Geometry height="75.0" width="321.0" x="249.0" y="712.0"/>
+              <y:Geometry height="68.0" width="302.0" x="249.0" y="698.0"/>
               <y:Fill color="#FFCC00" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="62.8046875" modelName="custom" textColor="#000000" visible="true" width="296.23046875" x="12.384765625" y="6.09765625">Content key 6cd62b91-0134-4dc5-82a7-18f33e362ea2
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="62.8046875" modelName="custom" textColor="#000000" visible="true" width="296.23046875" x="2.884765625" y="2.59765625">Content key 6cd62b91-0134-4dc5-82a7-18f33e362ea2
 
 Value: WH0NfNtzerxNYAmCRZsYBA==
 Conditions: expires 24h after first use; HDCP required<y:LabelModel>
