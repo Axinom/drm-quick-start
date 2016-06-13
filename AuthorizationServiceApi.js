@@ -39,10 +39,6 @@
 
 				// If we got here, the user is authorized and we need to generate a license token.
 
-				// NB! In a production implementation, you would retrieve a key container from the key server
-				// and embed that, to avoid the keys becoming known to the authorization service. For sample
-				// purposes, this is omitted and the keys are directly available in the video database.
-
 				if (!secretManagement.areSecretsAvailable()) {
 					console.log("ERROR: You must configure the secrets file to generate license tokens.");
 					response.status(NEED_TO_KNOW_SECRETS_STATUS_CODE)
@@ -54,7 +50,7 @@
 				let communicationKeyAsBuffer = Buffer.from(secrets.communicationKey, "hex");
 
 				// We allow this token to be used within plus or minus 24 hours. This allows for a lot of
-				// clock drift, as your demo servers might not be properly real-time synced across the world.
+				// clock drift, as your demo server might not be properly real-time synced across the world.
 				// In production scenarios, you should limit the use of the license token much more strictly.
 				let now = moment();
 				let validFrom = now.clone().subtract(1, "days");
@@ -73,9 +69,15 @@
 					]
 				};
 
+				// Now we embed all the content keys into the license token, for later use by the license server.
+				// 
 				// All the content keys in the license token are encrypted, of course, so they are not
 				// readable to any browser-side JavaScript code. There is no way to send content keys
 				// in the clear with Axinom DRM, even for testing purposes - encryption is always required.
+				// 
+				// NB! In a production implementation, you would retrieve a key container from the key server
+				// and embed that, to avoid the keys becoming known to the authorization service. For sample
+				// purposes, this is omitted and the keys are directly available in the video database.
 				video.keys.forEach(function (key) {
 					// The content key itself is what we encrypt.
 					let contentKeyAsBuffer = Buffer.from(key.key, "base64");
