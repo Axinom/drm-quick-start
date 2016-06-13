@@ -29,6 +29,8 @@ You will want to use a robust and reliable player that provides an optimal playb
 
 In the first scenario we explore, everything has been prepared for you - there exists a small website that has a single video that you can watch. All DRM information has been prepared for you and hardcoded into the application.
 
+The supported browsers for this sample app are the latest versions of Google Chrome, Mozilla Firefox, Microsoft Edge, and Microsoft Internet Explorer 11.
+
 Follow the instructions below to run this sample project and go through the first sample scenario.
 
 1. Install [node.js](https://nodejs.org) 
