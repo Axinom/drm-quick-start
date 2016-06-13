@@ -37,7 +37,7 @@ Follow the instructions below to run this sample project and go through the firs
 1. Clone or download this Git repository (the one that you are currently reading).
 1. Open a command prompt window and go to the directory where you placed the repository's files (e.g. *C:\Source\drm-quick-start*).
 1. Install required 3rd party packages by executing the following command: *npm install*
-1. Run the application by executing the following command: *node Main.js*
+1. Run the application by executing the following command: *node Server.js*
 ![](Images/Sample - start app.png)
 1. If everything went well, the output from this command will instruct you to open [http://localhost:8120](http://localhost:8120) in your browser. Do so.
 
@@ -55,7 +55,7 @@ The sample project implements a basic website that enables the user to select a 
 
 The main building blocks of the sample are:
 
-* *Main.js* - creates an HTTP server that publishes the website, the website API and the authorization service.
+* *Server.js* - creates an HTTP server that publishes the website, the website API and the authorization service.
 * *VideoDatabase.js* - defines the list of videos made available to the user.
 * *WebsiteApi.js* - implements the website API that is used by browser-side JavaScript code to obtain the list of videos.
 * *AuthorizationServiceApi.js* - implements the authorization service API that makes authorization decisions when the browser-side JavaScript code requests permission to play back content; license tokens are provided by this API.
@@ -96,7 +96,7 @@ To modify the project for the second sample scenario, open *VideoDatabase.js* an
 }
 ``` 
 
-Now, create a file *Secrets.json* based on the sample below and place it in the same directory as *Main.js*. **Replace the example data below with real values from the Axinom DRM Fact Sheet**.
+Now, create a file *Secrets.json* based on the sample below and place it in the same directory as *Server.js*. **Replace the example data below with real values from the Axinom DRM Fact Sheet**.
 
 ```
 {

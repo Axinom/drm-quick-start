@@ -2,9 +2,10 @@
   "name": "drm-quick-start",
   "version": "1.0.0",
   "description": "Sample project and quick start guide for Axinom DRM",
-  "main": "Main.js",
+  "main": "Server.js",
   "author": "Axinom",
   "license": "MIT",
+  "repository": "https://github.com/Axinom/drm-quick-start",
   "dependencies": {
     "express": "^4.13.4",
     "jsonwebtoken": "^7.0.0",
