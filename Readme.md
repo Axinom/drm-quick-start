@@ -55,18 +55,18 @@ The sample project implements a basic website that enables the user to select a 
 
 The main building blocks of the sample are:
 
-* *Server.js* - creates an HTTP server that publishes the website, the website API and the authorization service.
+* *Server.js* - creates an HTTP server that publishes the website, the catalog API and the authorization service.
 * *VideoDatabase.js* - defines the list of videos made available to the user.
-* *WebsiteApi.js* - implements the website API that is used by browser-side JavaScript code to obtain the list of videos.
+* *CatalogApi.js* - implements the catalog API that is used by browser-side JavaScript code to obtain the list of videos.
 * *AuthorizationServiceApi.js* - implements the authorization service API that makes authorization decisions when the browser-side JavaScript code requests permission to play back content; license tokens are provided by this API.
-* *Website/Index.html* - the page loaded in the browser, including the browser-side JavaScript code; it communicates with the website API and the authorization service API using REST web service calls; the website plays videos using the dash.js player.
+* *Website/Index.html* - the page loaded in the browser, including the browser-side JavaScript code; it communicates with the catalog API and the authorization service API using REST web service calls; the website plays videos using the dash.js player.
 
 ![](Images/Sample - workflow.png)
 
 In terms of executed workflows, the following takes place:
 
-1. When the website is loaded in a browser, the browser-side JavaScript code contacts the website API to retrieve the list of videos.
-1. The website API simply returns whatever videos are listed in *VideoDatabase.js*. By default, there is just one video titled "Axinom demo video".
+1. When the website is loaded in a browser, the browser-side JavaScript code contacts the catalog API to retrieve the list of videos.
+1. The catalog API simply returns whatever videos are listed in *VideoDatabase.js*. By default, there is just one video titled "Axinom demo video".
 1. When the user clicks on a video link to start playback, the browser-side JavaScript code requests authorization from the authorization service API.
 1. The authorization service will authorize every request, as there is no need to actually refuse playback in the sample scenarios. There are comments in the code indicating the location where actual authorization checking logic would go. 
 1. If the website requested permission to play "Axinom demo video" then the authorization service simply returns a hardcoded license token. This is a special case to keep the first sample scenario very simple. Other scenarios introduced below will use a more realistic workflow. 
@@ -77,7 +77,7 @@ The code is thoroughly commented, so the above is only a high-level overview. To
 
 # Sample scenario 2: creating your own license tokens
 
-In this scenario, we will modify the sample project to generate a unique license token upon every request, instead of returning a hardcoded license token.
+In this scenario, we will modify the sample project to generate a unique license token upon every request, instead of returning a hardcodedg license token.
 
 You will need an [Axinom DRM evaluation account](http://drm.axinom.com/evaluation-account/) in order to proceed. Upon signing up, you will receive a document titled "Axinom DRM Fact Sheet" that will contain some information required below.
 

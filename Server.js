@@ -15,9 +15,9 @@
     // At /, we serve the website folder as static resources.
     app.use(express.static(__dirname + '/Website'));
 
-    // At /api/website is the website's API that provides data for the frontend.
-    let websiteApi = require("./WebsiteApi");
-    app.use("/api/website", websiteApi.createRouter());
+    // At /api/catalog is the catalog API that provides data for the frontend.
+    let catalogApi = require("./CatalogApi");
+    app.use("/api/catalog", catalogApi.createRouter());
 
     // At /api/authorization is the authorization service.
     let authorizationServiceApi = require("./AuthorizationServiceApi");

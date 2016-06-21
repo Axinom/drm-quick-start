@@ -97,7 +97,7 @@
             }
 
             // Let's first populate the video list.
-            $.getJSON("/api/website/videos")
+            $.getJSON("/api/catalog/videos")
                 .done(function(videos) {
                     console.log("Server provided " + videos.length + " videos.");
 
@@ -121,7 +121,7 @@
                     $videoListPanel.show();
                 })
                 .fail(function() {
-                    console.log("Web API call to get videos failed!");
+                    console.log("API call to get video catalog failed!");
                 });
             });
     </script>
