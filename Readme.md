@@ -1,6 +1,8 @@
 # Axinom DRM - quick start
 This guide will show you how you can start using Axinom DRM to protect and play back premium video content.
 
+A separate repository also contains an [Android frontend](https://github.com/Axinom/drm-quick-start-android) that interoperates with this sample project.
+
 # Basic concepts of DRM
 
 This chapter presents a high-level functional view of DRM concepts. Understand that there is a lot more happening under the covers, especially in the realm of security and key management.
