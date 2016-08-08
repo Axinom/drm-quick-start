@@ -10,6 +10,9 @@
 
 			// This API call returns a JSON list with basic info about all the videos on the website.
 			router.get("/videos", function processGet(request, response) {
+				// We do not want our API calls to get cached.
+				response.header("Cache-Control", "no-cache");
+				
 				let videoList = [];
 
 				videoDatabase.getAllVideos().forEach(function mapVideo(video) {

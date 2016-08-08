@@ -12,6 +12,9 @@
     let express = require("express");
     let app = express();
 
+    // We disable etag as it causes API calls to be cached even with Cache-Control: no-cache.
+    app.disable("etag");
+
     // At /, we serve the website folder as static resources.
     app.use(express.static(__dirname + '/Website'));
 

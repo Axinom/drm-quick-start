@@ -19,6 +19,9 @@
 			// This API call returns the license token for playing back a video.
 			// The web app provides the name of the video as a parameter in the URL.
 			router.get("/:videoName", function processGet(request, response) {
+				// We do not want our API calls to get cached.
+				response.header("Cache-Control", "no-cache");
+
 				let video = videoDatabase.getVideoByName(request.params.videoName);
 
 				if (!video) {
