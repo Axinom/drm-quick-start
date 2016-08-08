@@ -55,6 +55,8 @@
 				// We allow this token to be used within plus or minus 24 hours. This allows for a lot of
 				// clock drift, as your demo server might not be properly real-time synced across the world.
 				// In production scenarios, you should limit the use of the license token much more strictly.
+				// The time limit defined here applies both to the license token and to any generated licenses,
+				// though it is possible to control them separately in situations where that is desired.
 				let now = moment();
 				let validFrom = now.clone().subtract(1, "days");
 				let validTo = now.clone().add(1, "days");
