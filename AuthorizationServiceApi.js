@@ -117,7 +117,8 @@
 
 				// The license token must be digitally signed to prove that it came from the authorization service.
 				let licenseToken = jwt.sign(envelope, communicationKeyAsBuffer, {
-					"algorithm": "HS256"
+					"algorithm": "HS256",
+					"noTimestamp": true
 				});
 
 				response.json(licenseToken);
