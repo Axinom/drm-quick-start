@@ -135,9 +135,12 @@ Makemedia system requirements:
 
 **The starting point for this scenario is an MP4 or MOV file containing both video and audio** - ensure that your video is in this format before continuing. You can download some free test content in this format from the [Blender Foundation](https://mango.blender.org/download/). The steps below will transform this input video into a format suitable for playback.
 
-Before you can do anything with the video, you will need to generate a content key. The sample project includes a command line application for this. Simply execute the following command in the project directory: *node GenerateKey.js*
+Before you can do anything with the video, you will need to generate a content key. The sample project includes two simple command line applications that allow generating either a totally random key or a random key that is based on your key seed and a randomly generated key ID:
 
+* *GenerateKey.js* - generates a random content key. To use it, execute the following command in the project directory: *node GenerateKey.js*
 ![](Images/Sample - generate key.png)
+* *GenerateKeyUsingKeyServer.js* - generates a key seed based random content key using Axinom key server. To use it, execute the following command in the project directory, while replacing the placeholder values with ones specified in the "Key Server" section of your Axinom DRM Fact Sheet: *node GenerateKeyUsingKeyServer.js --signer <Account name> --signing-key <64-character hex Signing Key> --signing-iv <32-character hex Signing IV>* 
+![](Images/Sample - generate key using key server.png)
 
 Now you are ready to start creating the video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
 
