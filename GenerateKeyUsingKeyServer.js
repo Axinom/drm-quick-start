@@ -26,12 +26,11 @@
 	let signingKey = Buffer.from(program.signingKey, "hex");
 	let signingIv = Buffer.from(program.signingIv, "hex");
 	let signer = program.signer;
-	let signature;
 	
 	let contentKeyRequest = JSON.stringify(
 	{
-		content_id: contentId,
-		tracks: [{"type":"SD"}]
+		"content_id": contentId,
+		"tracks": [{ "type": "SD" }]
 	});
 
 	// Generate signature
@@ -39,40 +38,40 @@
 	let cipher = crypto.createCipheriv("aes-256-cbc", signingKey, signingIv);
 	let encryptedHash = cipher.update(hash, "", "hex");
 	encryptedHash += cipher.final("hex");
-	signature = Buffer.from(encryptedHash, "hex").toString("base64");
+	let signature = Buffer.from(encryptedHash, "hex").toString("base64");
 	
 	let keyServerRequest = JSON.stringify(
 	{
-		request: Buffer.from(contentKeyRequest).toString("base64"),
-		signature: signature,
-		signer: signer
+		"request": Buffer.from(contentKeyRequest).toString("base64"),
+		"signature": signature,
+		"signer": signer
 	});
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", keyServerUrl, true);
 	
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
 				try {
-					let contentKeyResponseBase64 = JSON.parse(xhr.responseText)["response"];
+					let contentKeyResponseBase64 = JSON.parse(xhr.responseText).response;
 					let contentKeyResponse = JSON.parse(Buffer.from(contentKeyResponseBase64, "base64").toString("ascii"));
 
-					let keyIdBase64 = contentKeyResponse["tracks"][0]["key_id"];
-					let keyBase64 = contentKeyResponse["tracks"][0]["key"];
+					let keyIdBase64 = contentKeyResponse.tracks[0].key_id;
+					let keyBase64 = contentKeyResponse.tracks[0].key;
 					let keyIdUuid = uuid.unparse(Buffer.from(keyIdBase64, "base64"));
 				
 					console.log();
 					console.log("Key ID: " + keyIdUuid);
 					console.log("Key: " + keyBase64);
-				} catch(err) {
+				} catch (err) {
 					console.log("Error: Key server refused to return a content key. Check the correctness of input parameters and try again. Contact Axinom if the issue persists.");
 				}
 			} else {
 				console.log("Error: Content key request to key server failed with code " + xhr.status + ". Contact Axinom to troubleshoot the issue.");
 			}
 		}
-	}
+	};
 	
 	xhr.send(keyServerRequest);
 })();
