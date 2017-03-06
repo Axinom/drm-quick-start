@@ -7,15 +7,15 @@ A separate repository also contains an [Android frontend](https://github.com/Axi
 
 This chapter presents a high-level functional view of DRM concepts. Understand that there is a lot more happening under the covers, especially in the realm of security and key management.
 
-![](Images/Concepts - protected video.png)
+![](/Images/Concepts-ProtectedVideo.png)
 
 The media samples in a protected video are encrypted with one or more **content keys**, each referenced in the video metadata by its unique key ID.
 
-![](Images/Concepts - license.png)
+![](Images/Concepts-License.png)
 
 To play the video, a DRM-capable player needs to decrypt the media samples. For this, it needs access to the content keys, which are delivered in a **license** that also defines the conditions under which the content keys may be used (e.g. expiration).
 
-![](Images/Concepts - license acquisition.png)
+![](Images/Concepts-LicenseAcquisition.png)
 
 The Axinom DRM **license server** will give a license to every player who can prove that they have the right to get a license. The player proves this by presenting a **license token** obtained from an **authorization service** whose responsibility it is to make such decisions and to obtain the appropriate content keys from the **key server**, attaching them in a secured form to the license token.
 
@@ -23,7 +23,7 @@ The Axinom DRM **license server** will give a license to every player who can pr
 
 The Axinom DRM product suite includes both a license server and a key server, offered as cloud services. The remaining parts of a DRM-enabled solution must be either 3rd party products or custom developed components. The diagram below illustrates the most common setup.
 
-![](Images/Solution components.png)
+![](Images/SolutionComponents.png)
 
 You will want to use a robust and reliable player that provides an optimal playback experience. [dash.js](https://github.com/Dash-Industry-Forum/dash.js) integrates natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - [Contact Axinom](mailto:info@axinom.com) for detailed player evaluation guidance.
 
@@ -40,16 +40,16 @@ Follow the instructions below to run this sample project and go through the firs
 1. Open a command prompt window and go to the directory where you placed the repository's files (e.g. *C:\Source\drm-quick-start*).
 1. Install required 3rd party packages by executing the following command: *npm install*
 1. Run the application by executing the following command: *node Server.js*
-![](Images/Sample - start app.png)
+![](Images/Sample-StartApp.png)
 1. If everything went well, the output from this command will instruct you to open [http://localhost:8120](http://localhost:8120) in your browser. Do so.
 
 The first sample scenario is very simple - once you open the website, there is a single "Axinom demo video" link presented to you. Clicking on this link will play a protected video. That's it - go give it a try!
 
-![](Images/Sample - website player.png)
+![](Images/Sample-WebsitePlayer.png)
 
 If you encounter any difficulties in getting the demo video to play, inspect the log messages shown in the browser's JavaScript console (F12) and in the command prompt window.
 
-![](Images/Sample - JS console.png)
+![](Images/Sample-JsConsole.png)
 
 ## Understanding sample scenario 1
 
@@ -63,7 +63,7 @@ The main building blocks of the sample are:
 * *AuthorizationServiceApi.js* - implements the authorization service API that makes authorization decisions when the browser-side JavaScript code requests permission to play back content; license tokens are provided by this API.
 * *Website/Index.html* - the page loaded in the browser, including the browser-side JavaScript code; it communicates with the catalog API and the authorization service API using REST web service calls; the website plays videos using the dash.js player.
 
-![](Images/Sample - workflow.png)
+![](Images/Sample-Workflow.png)
 
 In terms of executed workflows, the following takes place:
 
@@ -109,7 +109,7 @@ Now, create a file *Secrets.json* based on the sample below and place it in the 
 
 Having created the *Secrets.json* file, you should see a message about it being loaded when you start the application.
 
-![](Images/Sample - start app with secrets.png)
+![](Images/Sample-StartAppWithSecrets.png)
 
 That's all you need! The authorization service will now generate a unique license token upon every request. Run the application, open the website in a browser and go play the video!
 
@@ -135,22 +135,25 @@ Makemedia system requirements:
 
 **The starting point for this scenario is an MP4 or MOV file containing both video and audio** - ensure that your video is in this format before continuing. You can download some free test content in this format from the [Blender Foundation](https://mango.blender.org/download/). The steps below will transform this input video into a format suitable for playback.
 
-Before you can do anything with the video, you will need to generate a content key. The sample project includes two simple command line applications that allow generating either a totally random key or a random key that is based on your key seed and a randomly generated key ID:
+Before you can do anything with the video, you will need to generate a content key. The sample project includes two simple command line applications for generating a random content key either locally or via the Axinom Key Server, based on customer's default Key Seed:
 
-* *GenerateKey.js* - generates a random content key. To use it, execute the following command in the project directory: *node GenerateKey.js*
-![](Images/Sample - generate key.png)
-* *GenerateKeyUsingKeyServer.js* - generates a key seed based random content key using Axinom key server. To use it, execute the following command in the project directory, while replacing the placeholder values with ones specified in the "Key Server" section of your Axinom DRM Fact Sheet: *node GenerateKeyUsingKeyServer.js --signer <Account name> --signing-key <64-character hex Signing Key> --signing-iv <32-character hex Signing IV>* 
-![](Images/Sample - generate key using key server.png)
+* *GenerateKey.js* - generates a random content key on local PC. To use it, execute the following command in the project directory: *node GenerateKey.js* 
+
+   ![](Images/Sample-GenerateKey.png)
+
+* *GenerateKeyUsingKeyServer.js* - generates a content key using Axinom Key Server, based on customer's default Key Seed. To use it, execute the following command in the project directory, while replacing parameter values with the ones specified in the "Key Server" section of your Axinom DRM Fact Sheet: *node GenerateKeyUsingKeyServer.js --signer `Account name` --signing-key `64-character hex Signing Key` --signing-iv `32-character hex Signing IV`* 
+
+   ![](Images/Sample-GenerateKeyUsingKeyServer.png)
 
 Now you are ready to start creating the video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
 
-![](Images/Sample - makemedia.png)
+![](Images/Sample-Makemedia.png)
 
 Wait for the video to be encoded, encrypted and packaged. This may take up to 24 hours for full-length movies, though only minutes for short clips.
 
 The output location will have two subdirectories: *Clear* and *Encrypted*. For diagnostic and troubleshooting purposes, a clear variant (without encryption) of your video is generated side-by-side with the encrypted variant.
 
-![](Images/Sample - clear and encrypted.png)
+![](Images/Sample-ClearAndEncrypted.png)
 
 The sample project website will correctly serve DASH videos if the output files are placed under the *Website* directory, as in the above example. You may also use external servers but as web servers require some configuration in order to correctly serve videos, using the sample project is the easiest option to start with.
 
