@@ -71,7 +71,14 @@
 
 					// The keys list will be filled separately by the next code block.
 					"keys": [
-					]
+					],
+					
+					"playready": {
+						"min_app_security_level": 150,
+						"play_enablers": [
+							"786627D8-C2A6-44BE-8F88-08AE255B01A7"
+						]
+					}
 				};
 
 				// Now we embed all the content keys into the license token, for later use by the license server.
