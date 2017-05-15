@@ -73,9 +73,12 @@
 					"keys": [
 					],
 					
+					// License configuration should be as permissive as possible for the scope of this guide.
+					// For this reason, some PlayReady-specific restrictions are relaxed below.
+					// There is no need to relax the default Widevine-specific restrictions.
 					"playready": {
-						"min_app_security_level": 150,
-						"play_enablers": [
+						"min_app_security_level": 150, // Allow playback on non-production devices.
+						"play_enablers": [ // Allow playback in virtual machines.
 							"786627D8-C2A6-44BE-8F88-08AE255B01A7"
 						]
 					}
