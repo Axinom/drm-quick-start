@@ -3,7 +3,7 @@ This guide will show you how you can start using Axinom DRM to protect and play 
 
 Axinom DRM offers multiple DRM technologies - FairPlay Streaming, PlayReady and Widevine Modular. Due to contractual limitations regarding the evaluation of FairPlay, however, this guide focuses on how to get started with PlayReady and Widevine Modular. [Contact Axinom](mailto:info@axinom.com) to get started with FairPlay Streaming.
 
-A separate repository also contains an [Android frontend](https://github.com/Axinom/drm-quick-start-android) that interoperates with this sample project.
+A separate repository also contains an [Android frontend](https://github.com/Axinom/drm-quick-start-android) and [iOS frontend](https://github.com/Axinom/drm-quick-start-ios) that interoperate with this sample project.
 
 # Basic concepts of DRM
 
