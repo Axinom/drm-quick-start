@@ -49,6 +49,7 @@
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", keyServerUrl, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
 	
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4) {
