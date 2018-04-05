@@ -61,10 +61,13 @@
 					let keyIdBase64 = contentKeyResponse.tracks[0].key_id;
 					let keyBase64 = contentKeyResponse.tracks[0].key;
 					let keyIdUuid = uuid.unparse(Buffer.from(keyIdBase64, "base64"));
+					let pssh = contentKeyResponse.tracks[0].pssh[0].data;
 				
 					console.log();
 					console.log("Key ID: " + keyIdUuid);
 					console.log("Key: " + keyBase64);
+					console.log();
+					console.log("Widevine PSSH data: " + pssh);
 				} catch (err) {
 					console.log("Error: Key server refused to return a content key. Check the correctness of input parameters and try again. Contact Axinom if the issue persists.");
 				}
