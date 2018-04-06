@@ -27,7 +27,7 @@ The Axinom DRM product suite includes both a license server and a key server, of
 
 ![](Images/SolutionComponents.png)
 
-You will want to use a robust and reliable player that provides an optimal playback experience. [dash.js](https://github.com/Dash-Industry-Forum/dash.js) integrates natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - [Contact Axinom](mailto:info@axinom.com) for detailed player evaluation guidance.
+You will want to use a robust and reliable player that provides an optimal playback experience. Both [dash.js](https://github.com/Dash-Industry-Forum/dash.js) and [Shaka Player](https://github.com/google/shaka-player) integrate natively with Axinom DRM and can be used in all modern browsers that contain a compatible content decryption module. On Android, [ExoPlayer](https://github.com/google/exoplayer) is the recommended player. The player ecosystem on other platforms is less straightforward - [Contact Axinom](mailto:info@axinom.com) for detailed player evaluation guidance.
 
 # Sample scenario 1: ready to go demo video
 
