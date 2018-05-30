@@ -147,13 +147,15 @@ Before you can do anything with the video, you will need to generate a content k
 
    ![](Images/Sample-GenerateKeyUsingKeyServer.png)
 
-Now you are ready to start creating the video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
+Now you are ready to start creating the video. Open a command prompt window and go to the location where you saved the Makemedia utility. There, execute the following command, replacing the parameter values with your own: *Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --avc --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==*
 
 ![](Images/Sample-Makemedia.png)
 
+Above command will create H264 MPEG-DASH with CENC encryption. If you wish to produce CMAF (both HLS and DASH manifests included) with CBCS encryption, add *--encryption-mode Cbcs* parameter to the command.
+
 Wait for the video to be encoded, encrypted and packaged. This may take up to 24 hours for full-length movies, though only minutes for short clips.
 
-The output location will have two subdirectories: *Clear* and *Encrypted*. For diagnostic and troubleshooting purposes, a clear variant (without encryption) of your video is generated side-by-side with the encrypted variant.
+The output location will have two subdirectories: *Clear* and *Encrypted*. For diagnostic and troubleshooting purposes, a clear variant (without encryption) of your video is generated side-by-side with the encrypted variant. If you wish to ommit the clear version, add *--noclear* attribute to the command.
 
 ![](Images/Sample-ClearAndEncrypted.png)
 
