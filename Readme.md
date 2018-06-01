@@ -81,7 +81,7 @@ The code is thoroughly commented, so the above is only a high-level overview. To
 
 # Sample scenario 2: creating your own license tokens
 
-In this scenario, we will modify the sample project to generate a unique license token upon every request, instead of returning a hardcodedg license token.
+In this scenario, we will modify the sample project to generate a unique license token upon every request, instead of returning a hardcoded license token.
 
 You will need an [Axinom DRM evaluation account](http://drm.axinom.com/evaluation-account/) in order to proceed. Upon signing up, you will receive a document titled "Axinom DRM Fact Sheet" that will contain some information required below.
 
