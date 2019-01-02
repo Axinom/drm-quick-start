@@ -50,7 +50,7 @@
 				}
 
 				let secrets = secretManagement.getSecrets();
-				let communicationKeyAsBuffer = Buffer.from(secrets.communicationKey, "hex");
+				let communicationKeyAsBuffer = Buffer.from(secrets.communicationKey, "base64");
 
 				// We allow this token to be used within plus or minus 24 hours. This allows for a lot of
 				// clock drift, as your demo server might not be properly real-time synced across the world.
