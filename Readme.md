@@ -105,7 +105,7 @@ Now, create a file *Secrets.json* based on the sample below and place it in the 
 ```
 {
     "communicationKeyId": "cffd95ba-aada-445b-b4ad-e8f322cf576a",
-    "communicationKey": "092B1EFD61770602833E1621451A99092B1EFD61770602833E1621451A999999"
+    "communicationKey": "CSse/WF3BgKDPhYhRRqZCSse/WF3BgKDPhYhRRqZmZk="
 }
 ```
 

@@ -33,12 +33,12 @@
 			if (!secrets.communicationKey)
 				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKey field is missing.");
 
-			var communicationKeyBuffer = Buffer.from(secrets.communicationKey, 'hex');
+			var communicationKeyBuffer = Buffer.from(secrets.communicationKey, 'base64');
 			if (communicationKeyBuffer.length !== COMMUNICATION_KEY_LENGTH_IN_BYTES)
-				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKey did not contain " + COMMUNICATION_KEY_LENGTH_IN_BYTES + " bytes of hex-encoded data.");
+				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKey did not contain " + COMMUNICATION_KEY_LENGTH_IN_BYTES + " bytes of base64-encoded data.");
 
 			if (secrets.communicationKeyId === "cffd95ba-aada-445b-b4ad-e8f322cf576a"
-				|| secrets.communicationKey === "092B1EFD61770602833E1621451A99092B1EFD61770602833E1621451A999999")
+				|| secrets.communicationKey === "CSse/WF3BgKDPhYhRRqZCSse/WF3BgKDPhYhRRqZmZk=")
 				throw new Error("You need to replace the example values in " + SECRETS_FILE_NAME + " with your own!");
 		}
 	};
