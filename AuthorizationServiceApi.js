@@ -131,7 +131,9 @@
 				let envelope = {
 					"version": 1,
 					"com_key_id": secrets.communicationKeyId,
-					"message": message
+					"message": message,
+					"begin_date": validFrom.toISOString(),
+					"expiration_date": validTo.toISOString()
 				};
 
 				console.log("Creating license token with payload: " + JSON.stringify(envelope));

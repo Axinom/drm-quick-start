@@ -5,11 +5,11 @@
 
     // The videos are defined here. Add your videos to this list.
     let allVideos = [
-        /*
+        
         // Uncomment and copy-paste this block as an example for adding custom videos to the list.
         {
             "name": "My video 1",
-            "url": "https://example.com/Manifest.mpd",
+            "url": "https://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
             "keys": [
                 // NB! This sample contains the actual content keys for demo purposes only,
                 // as integration with a key server is out of scope of this sample. In a
@@ -22,7 +22,7 @@
                 } 
             ]
         },
-        */
+        
 
         // This is a special video that uses a pre-generated license token. For adding your
         // own videos to the list, copy-paste the custom video example above instead of this one.
