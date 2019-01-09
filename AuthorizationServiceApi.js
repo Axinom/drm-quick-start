@@ -66,22 +66,34 @@
 				// shown here are only the bare minimum to create a license token suitable for realistic use.
 				let message = {
 					"type": "entitlement_message",
-					"begin_date": validFrom.toISOString(),
-					"expiration_date": validTo.toISOString(),
+					"version": 2,
+					"license": {
+						"start_datetime": validFrom.toISOString(),
+						"expiration_datetime": validTo.toISOString(),
+					},
 
 					// The keys list will be filled separately by the next code block.
-					"keys": [
-					],
+					"content_keys_source": {
+						"inline": [
+						]
+					},
 					
 					// License configuration should be as permissive as possible for the scope of this guide.
 					// For this reason, some PlayReady-specific restrictions are relaxed below.
 					// There is no need to relax the default Widevine-specific restrictions.
-					"playready": {
-						"min_app_security_level": 150, // Allow playback on non-production devices.
-						"play_enablers": [ // Allow playback in virtual machines.
-							"786627D8-C2A6-44BE-8F88-08AE255B01A7"
-						]
-					}
+					"content_key_usage_policies": [
+						{
+							"name": "Policy A",
+							"playready": {
+								"min_device_security_level": 150, // Allow playback on non-production devices.
+								"play_enablers": [ // Allow playback in virtual machines.
+									"786627D8-C2A6-44BE-8F88-08AE255B01A7"
+								]
+							},
+							"widevine": {
+							}
+						}
+					]
 				};
 
 				// Now we embed all the content keys into the license token, for later use by the license server.
@@ -108,9 +120,10 @@
 					let encryptedKeyAsBuffer = encryptor.update(contentKeyAsBuffer);
 					encryptedKeyAsBuffer = Buffer.concat([encryptedKeyAsBuffer, encryptor.final()]);
 
-					message.keys.push({
+					message.content_keys_source.inline.push({
 						"id": key.keyId,
-						"encrypted_key": encryptedKeyAsBuffer.toString("base64")
+						"encrypted_key": encryptedKeyAsBuffer.toString("base64"),
+						"usage_policy": "Policy A"
 					});
 				});
 
