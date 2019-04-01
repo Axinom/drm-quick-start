@@ -151,7 +151,7 @@ Now you are ready to start creating the video. Open a command prompt window and 
 
 ![](Images/Sample-Makemedia.png)
 
-Above command will create H264 MPEG-DASH with CENC encryption. If you wish to produce CMAF (both HLS and DASH manifests included) with CBCS encryption, add *--encryption-mode Cbcs* parameter to the command.
+Above command will create H264 CMAF content with CENC and CBCS encryption, together with DASH and HLS manifests. DASH content will contain Widevine and Playready signalling. HLS content will contain Widevine signalling, with HLS + CBCS variant also containing FairPlay signalling.
 
 Wait for the video to be encoded, encrypted and packaged. This may take up to 24 hours for full-length movies, though only minutes for short clips.
 
