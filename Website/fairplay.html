@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Axinom DRM quick start sample - FairPlay player</title>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <style>
+        video#videoPlayer {
+            width: 640px;
+            height: 360px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loadingPanel">
+        <p>Loading. See the JavaScript console in case of problems.</p>
+    </div>
+    <div id="videoListPanel" style="display: none">
+        <p>Using the FairPlay player. Select the video to play:</p>
+
+        <ul id="videoList">
+        </ul>
+    </div>
+    <div id="videoPlayerPanel" style="display: none">
+        <!-- Safari allows autoplay only when video is muted. -->
+        <video id="videoPlayer" controls autoplay muted></video>
+
+        <p>Unmute to hear sound! Safari doesn't allow autoplay with sound.</p>
+        <p>Refresh the page to go back to the video catalog.</p>
+    </div>
+    <div>
+        <p>Supported browsers: Safari on macOS and iOS.</p>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {      
+            var $loadingPanel = $("#loadingPanel");
+            var $videoListPanel = $("#videoListPanel");
+            var $videoList = $("#videoList");
+            var $videoPlayerPanel = $("#videoPlayerPanel");
+            var $videoPlayer = $("#videoPlayer");
+
+            var certificateUrl = "https://vtb.axinom.com/FPScert/fairplay.cer";
+            var licenseAcquisitionUrl = "https://drm-fairplay-licensing.axtest.net/AcquireLicense";
+            var playlistUrl;
+            var licenseToken;
+
+            var keySystem;
+            var certificate;
+
+            // Let's first populate the video list and add click handlers.
+            $.getJSON("/api/catalog/videos")
+                .done(function(videos) {
+                    console.log("Server provided " + videos.length + " videos.");
+
+                    $.each(videos, function(index, video) {
+                        console.log("Video \"" + video.name + "\" is at URL " + video.url);
+
+                        // This makes the list item for this video.
+                        var link = $("<a href=\"#\">");
+                        link.text(video.name);
+                        var listItem = $("<li>").append(link);
+                        $videoList.append(listItem);
+                        link.click(function () {
+                            playVideo(video);
+                            return false;
+                        });
+                    });
+
+                    console.log("Loading complete.");
+
+                    $loadingPanel.hide();
+                    $videoListPanel.show();
+                })
+                .fail(function() {
+                    console.log("API call to get video catalog failed!");
+                });
+
+            // Called when the user clicks on the link to play a video.
+            function playVideo(video) {
+                $videoListPanel.hide();
+                $loadingPanel.show();
+
+                console.log("Requesting license token.");
+
+                // First, we need to request a license token from the authorization service.
+                // This will prove to the license server that we have the right to play the video.
+                $.getJSON("/api/authorization/" + encodeURIComponent(video.name))
+                .done(function(token) {
+                    console.log("License token received: " + token)
+                    
+                    // Now we get to the FairPlay-specific part. A FairPlay player additionally needs
+                    // an FPS application certificate to work. For demo purposes a URL to Axinom's 
+                    // test FPS certificate has been provided. Eventually, for production, all FPS-users
+                    // need to request their own certificates from Apple.
+                    
+                    // All code from this point onwards is based on the Apple's reference FairPlay
+                    // HTML player from Apple FPS SDK (https://developer.apple.com/streaming/fps).
+                    // The reference player requires some modifications to work with Axinom DRM - see
+                    // comments marked with "NOTE:".
+                    
+                    licenseToken = token;
+                    playlistUrl = video.url;
+
+                    loadCertificate();
+                })
+                .fail(function() {
+                    console.log("ERROR - failed to get license token.");
+                });
+            }
+       
+            function stringToArray(string) {
+                var buffer = new ArrayBuffer(string.length*2);
+                var array = new Uint16Array(buffer);
+                for (var i=0, strLen=string.length; i<strLen; i++) {
+                    array[i] = string.charCodeAt(i);
+                }
+                return array;
+            }
+            
+            function arrayToString(array) {
+                var uint16array = new Uint16Array(array.buffer);
+                return String.fromCharCode.apply(null, uint16array);
+            }
+            
+            function waitForEvent(name, action, target) {
+                target.addEventListener(name, function() {
+                                        action(arguments[0]);
+                                        }, false);
+            }
+            
+            // NOTE: InitData contains the #EXT-X-KEY URI value parsed from the HLS manifest.
+            // Axinom DRM requires that everything after the "skd://" (scheme) part is extracted.
+            function extractContentId(initData) {
+                // "skd://{ContentID}" -> "{ContentID}".
+                return arrayToString(initData).replace(/^.*:\/\//, '');
+            }
+            
+            function concatInitDataIdAndCertificate(initData, id, cert) {
+                if (typeof id == "string")
+                id = stringToArray(id);
+                // layout is [initData][4 byte: idLength][idLength byte: id][4 byte:certLength][certLength byte: cert]
+                var offset = 0;
+                var buffer = new ArrayBuffer(initData.byteLength + 4 + id.byteLength + 4 + cert.byteLength);
+                var dataView = new DataView(buffer);
+                
+                var initDataArray = new Uint8Array(buffer, offset, initData.byteLength);
+                initDataArray.set(initData);
+                offset += initData.byteLength;
+                
+                dataView.setUint32(offset, id.byteLength, true);
+                offset += 4;
+                
+                var idArray = new Uint16Array(buffer, offset, id.length);
+                idArray.set(id);
+                offset += idArray.byteLength;
+                
+                dataView.setUint32(offset, cert.byteLength, true);
+                offset += 4;
+                
+                var certArray = new Uint8Array(buffer, offset, cert.byteLength);
+                certArray.set(cert);
+                
+                return new Uint8Array(buffer, 0, buffer.byteLength);
+            }
+            
+            function selectKeySystem()
+            {
+                if (WebKitMediaKeys.isTypeSupported("com.apple.fps.1_0", "video/mp4"))
+                {
+                    keySystem = "com.apple.fps.1_0";
+                }
+                else
+                {
+                    throw "Key System not supported";
+                }
+            }
+            
+            function startVideo() {
+                console.log("Loading video.");
+
+                $videoPlayer[0].addEventListener('webkitneedkey', onneedkey, false);
+                $videoPlayer[0].addEventListener('error', onerror, false);
+                $videoPlayer[0].src = playlistUrl;
+
+                $loadingPanel.hide();
+                $videoPlayerPanel.show();
+            }
+            
+            function onerror(event) {
+                window.console.error('A video playback error occurred');
+            }
+
+            function loadCertificate() {
+                console.log("Requesting FPS certificate from " + certificateUrl)
+                var request = new XMLHttpRequest();
+                request.responseType = 'arraybuffer';
+                request.addEventListener('load', onCertificateLoaded, false);
+                request.addEventListener('error', onCertificateError, false);
+                request.open('GET', certificateUrl, true);
+                request.setRequestHeader('Pragma', 'Cache-Control: no-cache');
+                request.setRequestHeader("Cache-Control", "max-age=0");
+                request.send();
+            }
+            
+            function onCertificateLoaded(event) {
+                console.log("FPS certificate received.");
+                var request = event.target;
+                certificate = new Uint8Array(request.response);
+                startVideo();
+            }
+            
+            function onCertificateError(event) {
+                window.console.error('FPS certificate request failed.');
+            }        
+    
+            function onneedkey(event) {
+                console.log("Content is protected. Preparing to create license request.");
+                
+                var video = event.target;
+                var initData = event.initData;
+                var contentId = extractContentId(initData);
+                
+                console.log("Content ID is: " + contentId);
+
+                initData = concatInitDataIdAndCertificate(initData, contentId, certificate);
+                
+                if (!video.webkitKeys)
+                {
+                    selectKeySystem();
+                    video.webkitSetMediaKeys(new WebKitMediaKeys(keySystem));
+                }
+                
+                if (!video.webkitKeys)
+                throw "Could not create MediaKeys";
+                
+                var keySession = video.webkitKeys.createSession("video/mp4", initData);
+                if (!keySession)
+                throw "Could not create key session";
+                
+                keySession.contentId = contentId;
+                waitForEvent('webkitkeymessage', licenseRequestReady, keySession);
+                waitForEvent('webkitkeyadded', onkeyadded, keySession);
+                waitForEvent('webkitkeyerror', onkeyerror, keySession);
+            }
+    
+            // NOTE: Axinom FairPlay license request is expected to be in binary form. Apple's
+            // reference player would do a binary-to-base64 conversion here.
+            function licenseRequestReady(event)
+            {
+                var session = event.target;
+                var message = event.message;
+                var request = new XMLHttpRequest();
+                var sessionId = event.sessionId;
+                request.responseType = 'arraybuffer';
+                request.session = session;
+                request.addEventListener('load', licenseRequestLoaded, false);
+                request.addEventListener('error', licenseRequestFailed, false);
+                
+                request.open('POST', licenseAcquisitionUrl, true);
+                request.setRequestHeader("Content-type", "application/octet-stream");
+                request.setRequestHeader("X-AxDRM-Message", licenseToken);
+                request.send(message);
+                console.log("License request created and posted to license server.")
+            }
+            
+            // NOTE: Axinom FairPlay license response will already be binary form. Apple's
+            // reference player excepts base64 data and then does a conversion to binary.
+            function licenseRequestLoaded(event) {
+                console.log("License response received.");
+                var request = event.target;
+                var session = request.session;
+
+                var arrayBuffer = request.response;
+                key = new Uint8Array(arrayBuffer);
+            
+                session.update(key);
+            }
+            
+            function licenseRequestFailed(event)
+            {
+                window.console.error('The license request failed.');
+            }
+            
+            function onkeyerror(event) {
+                window.console.error('A decryption key error was encountered');
+            }
+            
+            function onkeyadded(event) {
+                window.console.log('Decryption key was added to session.');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -24,14 +24,21 @@
         },
         */
 
-        // This is a special video that uses a pre-generated license token. For adding your
-        // own videos to the list, copy-paste the custom video example above instead of this one.
+        // Theses are a special videos that use a pre-generated license token. For adding your
+        // own videos to the list, copy the custom video example above and replace these.
+        //
+        // Note: The demo videos have hardcoded license tokens for maximum ease of use of the
+        // sample app. Never do this in production - always generate a new license token on
+        // every request.
         {
-            "name": "Axinom demo video",
-            "url": "https://media.axprod.net/TestVectors/v6-MultiDRM/Manifest_1080p.mpd",
-            // This video has a hardcoded license token, for maximum ease of use of the sample app.
-            // Never do this in production - always generate a new license token on every request.
-            "licenseToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsInZlcnNpb24iOjIsImNvbnRlbnRfa2V5c19zb3VyY2UiOnsiaW5saW5lIjpbeyJpZCI6IjZlNWExZDI2LTI3NTctNDdkNy04MDQ2LWVhYTVkMWQzNGI1YSIsInVzYWdlX3BvbGljeSI6IlBvbGljeSBBIn1dfSwiY29udGVudF9rZXlfdXNhZ2VfcG9saWNpZXMiOlt7Im5hbWUiOiJQb2xpY3kgQSIsInBsYXlyZWFkeSI6eyJtaW5fZGV2aWNlX3NlY3VyaXR5X2xldmVsIjoxNTAsInBsYXlfZW5hYmxlcnMiOlsiNzg2NjI3RDgtQzJBNi00NEJFLThGODgtMDhBRTI1NUIwMUE3Il19LCJ3aWRldmluZSI6e319XX19.1ie6MpTxLn8fNz29ERynMaMOnuRI2sSAxLhBysLybac"
+            "name": "Axinom demo video (DASH; Widevine and PlayReady protected)",
+            "url": "https://media.axprod.net/TestVectors/v9-MultiFormat/Encrypted_Cenc/Manifest_1080p.mpd",
+            "licenseToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiZjhjODBjMjUtNjkwZi00NzM2LTgxMzItNDMwZTVjNjk5NGNlIiwiZW5jcnlwdGVkX2tleSI6ImlYcTQ5Wjg5czhkQ2owam0yQTdYelE9PSJ9XSwicGxheXJlYWR5Ijp7Im1pbl9hcHBfc2VjdXJpdHlfbGV2ZWwiOjE1MCwicGxheV9lbmFibGVycyI6WyI3ODY2MjdEOC1DMkE2LTQ0QkUtOEY4OC0wOEFFMjU1QjAxQTciXX19fQ.hRBkpC-9i6nXUmxTPLEfb16MAwh5LhxUZ2b8z1o1e5g"
+        },
+        {
+            "name": "Axinom demo video (HLS; FairPlay protected)",
+            "url": "https://media.axprod.net/VTB/Makemedia/Encrypted_Cbcs/Manifest.m3u8",
+            "licenseToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiYzIzZjI4NzYtZjkxZC00ZGFkLWE2ZmYtMzQyM2QyOGY0NTU3In1dLCJwbGF5cmVhZHkiOnsibWluX2FwcF9zZWN1cml0eV9sZXZlbCI6MTUwLCJwbGF5X2VuYWJsZXJzIjpbIjc4NjYyN0Q4LUMyQTYtNDRCRS04Rjg4LTA4QUUyNTVCMDFBNyJdfX19.G-ulSvX0W8yJkyBU6huHc9CR8Oufw3Kg9uKnovhnTvw"
         }
     ];
 
