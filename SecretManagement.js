@@ -37,8 +37,8 @@
 			if (communicationKeyBuffer.length !== COMMUNICATION_KEY_LENGTH_IN_BYTES)
 				throw new Error(SECRETS_FILE_NAME + " validation failed: communicationKey did not contain " + COMMUNICATION_KEY_LENGTH_IN_BYTES + " bytes of base64-encoded data.");
 
-			if (secrets.communicationKeyId === "cffd95ba-aada-445b-b4ad-e8f322cf576a"
-				|| secrets.communicationKey === "CSse/WF3BgKDPhYhRRqZCSse/WF3BgKDPhYhRRqZmZk=")
+			if (secrets.communicationKeyId === "00000000-0000-0000-0000-000000000000"
+				|| secrets.communicationKey === "00000000000000000000000000000000000000000w==")
 				throw new Error("You need to replace the example values in " + SECRETS_FILE_NAME + " with your own!");
 		}
 	};

@@ -16,10 +16,12 @@
 				let videoList = [];
 
 				videoDatabase.getAllVideos().forEach(function mapVideo(video) {
-					// Only name and URL are exposed to the browser. Everything else is for internal use only.
+					// Only name, URL and an optional list tags are exposed to the browser.
+					// Everything else is for internal use only.
 					videoList.push({
 						"name": video.name,
-						"url": video.url
+						"url": video.url,
+						"tags": video.tags
 					});
 				});				
 

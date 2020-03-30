@@ -80,51 +80,34 @@
 					
 					// License configuration should be as permissive as possible for the scope of this guide.
 					// For this reason, some PlayReady-specific restrictions are relaxed below.
-					// There is no need to relax the default Widevine-specific restrictions.
+					// There is no need to relax the default Widevine or FairPlay specific restrictions.
 					"content_key_usage_policies": [
 						{
 							"name": "Policy A",
 							"playready": {
-								"min_device_security_level": 150, // Allow playback on non-production devices.
-								"play_enablers": [ // Allow playback in virtual machines.
+								// Allow playback on non-production devices.
+								"min_device_security_level": 150,
+								// Allow playback in virtual machines.
+								"play_enablers": [
 									"786627D8-C2A6-44BE-8F88-08AE255B01A7"
 								]
-							},
-							"widevine": {
 							}
 						}
 					]
 				};
 
-				// Now we embed all the content keys into the license token, for later use by the license server.
-				// 
-				// All the content keys in the license token are encrypted, of course, so they are not
-				// readable to any browser-side JavaScript code. There is no way to send content keys
-				// in the clear with Axinom DRM, even for testing purposes - encryption is always required.
-				// 
-				// NB! In a production implementation, you would retrieve a key container from the key server
-				// and embed that, to avoid the keys becoming known to the authorization service. For sample
-				// purposes, this is omitted and the keys are directly available in the video database.
+				// Now we embed the content key information (IDs and usage policies) into the license token.
+				// For more information on this topic, refer to Axinom DRM documentation.
+
 				video.keys.forEach(function (key) {
-					// The content key itself is what we encrypt.
-					let contentKeyAsBuffer = Buffer.from(key.key, "base64");
-
-					// The Key ID is used as the IV, in big-endian serialized format.
-					let keyIdAsBuffer = Buffer.from(uuid.parse(key.keyId));
-
-					// The communication key is the encryption key that secures the content key in transit.
-					let encryptor = crypto.createCipheriv("aes-256-cbc", communicationKeyAsBuffer, keyIdAsBuffer);
-					// No padding is to be used.
-					encryptor.setAutoPadding(false);
-
-					let encryptedKeyAsBuffer = encryptor.update(contentKeyAsBuffer);
-					encryptedKeyAsBuffer = Buffer.concat([encryptedKeyAsBuffer, encryptor.final()]);
-
-					message.content_keys_source.inline.push({
+					// A key ID is always required. In this demo, we'll also reference the previously defined
+					// key usage policy.
+					let inlineKey = {
 						"id": key.keyId,
-						"encrypted_key": encryptedKeyAsBuffer.toString("base64"),
-						"usage_policy": "Policy A"
-					});
+						"usage_policy": "Policy A"		
+					} 
+
+					message.content_keys_source.inline.push(inlineKey);
 				});
 
 				// For detailed information about these fields, refer to Axinom DRM documentation.
@@ -138,7 +121,7 @@
 
 				console.log("Creating license token with payload: " + JSON.stringify(envelope));
 
-				// The license token must be digitally signed to prove that it came from the authorization service.
+				// The license token must be digitally signed to prove that it came from the token service.
 				let licenseToken = jwt.sign(envelope, communicationKeyAsBuffer, {
 					"algorithm": "HS256",
 					"noTimestamp": true

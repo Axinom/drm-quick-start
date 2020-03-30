@@ -5,40 +5,50 @@
 
     // The videos are defined here. Add your videos to this list.
     let allVideos = [
+        // Uncomment and copy-paste the block below as an example for adding custom
+        // videos to the list.
         /*
-        // Uncomment and copy-paste this block as an example for adding custom videos to the list.
         {
             "name": "My video 1",
             "url": "https://example.com/Manifest.mpd",
             "keys": [
-                // NB! This sample contains the actual content keys for demo purposes only,
-                // as integration with a key server is out of scope of this sample. In a
-                // real production scenario, content keys are securely delivered from the
-                // key server to the license server without being visible to the website
-                // or to the authorization service.
                 {
                     "keyId": "1c817fed-0686-45b6-bce2-d6a4eb873588",
-                    "key": "YV5DwvbXdEU+HSwK+LN3DQ=="
-                } 
+                }
             ]
-        },
+        }
         */
 
-        // Theses are a special videos that use a pre-generated license token. For adding your
-        // own videos to the list, copy the custom video example above and replace these.
+        // The following entries are for the pre-generated demo videos. To add your own videos, 
+        // copy the sample video above, append to the list and adjust the fields as needed.
         //
         // Note: The demo videos have hardcoded license tokens for maximum ease of use of the
         // sample app. Never do this in production - always generate a new license token on
         // every request.
+
+        // Note: the "tags" property is optional. The demo player uses this to filter the video
+        // list -- for example, to only display FairPlay-compliant videos on Safari.
         {
-            "name": "Axinom demo video (DASH; Widevine and PlayReady protected)",
-            "url": "https://media.axprod.net/TestVectors/v9-MultiFormat/Encrypted_Cenc/Manifest_1080p.mpd",
-            "licenseToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiZjhjODBjMjUtNjkwZi00NzM2LTgxMzItNDMwZTVjNjk5NGNlIiwiZW5jcnlwdGVkX2tleSI6ImlYcTQ5Wjg5czhkQ2owam0yQTdYelE9PSJ9XSwicGxheXJlYWR5Ijp7Im1pbl9hcHBfc2VjdXJpdHlfbGV2ZWwiOjE1MCwicGxheV9lbmFibGVycyI6WyI3ODY2MjdEOC1DMkE2LTQ0QkUtOEY4OC0wOEFFMjU1QjAxQTciXX19fQ.hRBkpC-9i6nXUmxTPLEfb16MAwh5LhxUZ2b8z1o1e5g"
+            "name": "Axinom demo video - single key (DASH; cenc)",
+            "url": "https://media.axprod.net/VTB/DrmQuickStart/AxinomDemoVideo-SingleKey/Encrypted_Cenc/Manifest.mpd",
+            "licenseToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ2ZXJzaW9uIjoyLCJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImNvbnRlbnRfa2V5c19zb3VyY2UiOnsiaW5saW5lIjpbeyJpZCI6IjIxMWFjMWRjLWM4YTItNDU3NS1iYWY3LWZhNGJhNTZjMzhhYyIsInVzYWdlX3BvbGljeSI6IlRoZU9uZVBvbGljeSJ9XX0sImNvbnRlbnRfa2V5X3VzYWdlX3BvbGljaWVzIjpbeyJuYW1lIjoiVGhlT25lUG9saWN5IiwicGxheXJlYWR5Ijp7InBsYXlfZW5hYmxlcnMiOlsiNzg2NjI3RDgtQzJBNi00NEJFLThGODgtMDhBRTI1NUIwMUE3Il19fV19fQ.0OygPRGMlzYbbQJ_pEJSZ_scTRUsQzDPragUzf-mA5w",
+        },
+		{
+            "name": "Axinom demo video - single key (HLS; cbcs)",
+            "url": "https://media.axprod.net/VTB/DrmQuickStart/AxinomDemoVideo-SingleKey/Encrypted_Cbcs/Manifest.m3u8",
+            "licenseToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ2ZXJzaW9uIjoyLCJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImNvbnRlbnRfa2V5c19zb3VyY2UiOnsiaW5saW5lIjpbeyJpZCI6IjIxMWFjMWRjLWM4YTItNDU3NS1iYWY3LWZhNGJhNTZjMzhhYyIsInVzYWdlX3BvbGljeSI6IlRoZU9uZVBvbGljeSJ9XX0sImNvbnRlbnRfa2V5X3VzYWdlX3BvbGljaWVzIjpbeyJuYW1lIjoiVGhlT25lUG9saWN5IiwicGxheXJlYWR5Ijp7InBsYXlfZW5hYmxlcnMiOlsiNzg2NjI3RDgtQzJBNi00NEJFLThGODgtMDhBRTI1NUIwMUE3Il19fV19fQ.0OygPRGMlzYbbQJ_pEJSZ_scTRUsQzDPragUzf-mA5w",
+            "tags": ["FairPlay"]
         },
         {
-            "name": "Axinom demo video (HLS; FairPlay protected)",
-            "url": "https://media.axprod.net/VTB/Makemedia/Encrypted_Cbcs/Manifest.m3u8",
-            "licenseToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImtleXMiOlt7ImlkIjoiYzIzZjI4NzYtZjkxZC00ZGFkLWE2ZmYtMzQyM2QyOGY0NTU3In1dLCJwbGF5cmVhZHkiOnsibWluX2FwcF9zZWN1cml0eV9sZXZlbCI6MTUwLCJwbGF5X2VuYWJsZXJzIjpbIjc4NjYyN0Q4LUMyQTYtNDRCRS04Rjg4LTA4QUUyNTVCMDFBNyJdfX19.G-ulSvX0W8yJkyBU6huHc9CR8Oufw3Kg9uKnovhnTvw"
+            "name": "Axinom demo video - multikey (DASH; cenc)",
+            "url": "https://media.axprod.net/VTB/DrmQuickStart/AxinomDemoVideo-MultiKey/Encrypted_Cenc/Manifest.mpd",
+            "licenseToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ2ZXJzaW9uIjoyLCJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImNvbnRlbnRfa2V5c19zb3VyY2UiOnsiaW5saW5lIjpbeyJpZCI6ImYzZDU4OGM3LWMxN2EtNDAzMy05MDM1LThkYjMxNzM5MGJlNiIsInVzYWdlX3BvbGljeSI6IlRoZU9uZVBvbGljeSJ9LHsiaWQiOiI0NGIxOGEzMi02ZDM2LTQ5OWQtOGI5My1hMjBmOTQ4YWM1ZjIiLCJ1c2FnZV9wb2xpY3kiOiJUaGVPbmVQb2xpY3kifSx7ImlkIjoiYWU2ZTg3ZTItM2MzYy00NmQxLThlOWQtZWY0YzQ2MWQ0NjgxIiwidXNhZ2VfcG9saWN5IjoiVGhlT25lUG9saWN5In1dfSwiY29udGVudF9rZXlfdXNhZ2VfcG9saWNpZXMiOlt7Im5hbWUiOiJUaGVPbmVQb2xpY3kiLCJwbGF5cmVhZHkiOnsicGxheV9lbmFibGVycyI6WyI3ODY2MjdEOC1DMkE2LTQ0QkUtOEY4OC0wOEFFMjU1QjAxQTciXX19XX19.wNvPBVnPRCaJhuHywyVyvkON9p2YpdG9AiIyLA9Sv3M",
+        },
+        {
+            "name": "Axinom demo video - multikey (HLS; cbcs)",
+            "url": "https://media.axprod.net/VTB/DrmQuickStart/AxinomDemoVideo-MultiKey/Encrypted_Cbcs/Manifest.m3u8",
+            "licenseToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiNjllNTQwODgtZTllMC00NTMwLThjMWEtMWViNmRjZDBkMTRlIiwibWVzc2FnZSI6eyJ2ZXJzaW9uIjoyLCJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsImNvbnRlbnRfa2V5c19zb3VyY2UiOnsiaW5saW5lIjpbeyJpZCI6ImYzZDU4OGM3LWMxN2EtNDAzMy05MDM1LThkYjMxNzM5MGJlNiIsInVzYWdlX3BvbGljeSI6IlRoZU9uZVBvbGljeSJ9LHsiaWQiOiI0NGIxOGEzMi02ZDM2LTQ5OWQtOGI5My1hMjBmOTQ4YWM1ZjIiLCJ1c2FnZV9wb2xpY3kiOiJUaGVPbmVQb2xpY3kifSx7ImlkIjoiYWU2ZTg3ZTItM2MzYy00NmQxLThlOWQtZWY0YzQ2MWQ0NjgxIiwidXNhZ2VfcG9saWN5IjoiVGhlT25lUG9saWN5In1dfSwiY29udGVudF9rZXlfdXNhZ2VfcG9saWNpZXMiOlt7Im5hbWUiOiJUaGVPbmVQb2xpY3kiLCJwbGF5cmVhZHkiOnsicGxheV9lbmFibGVycyI6WyI3ODY2MjdEOC1DMkE2LTQ0QkUtOEY4OC0wOEFFMjU1QjAxQTciXX19XX19.wNvPBVnPRCaJhuHywyVyvkON9p2YpdG9AiIyLA9Sv3M",
+            "tags": ["FairPlay"]
         }
     ];
 
@@ -69,13 +79,6 @@
             video.keys.forEach(function verifyKey(item) {
                 if (!item.keyId)
                     throw new Error("A content key is missing the key ID.");
-                if (!item.key)
-                    throw new Error("A content key is missing the value of the key.");
-
-                const CONTENT_KEY_SIZE_IN_BYTES = 16;
-                let keyBuffer = Buffer.from(item.key, 'base64');
-                if (keyBuffer.length !== CONTENT_KEY_SIZE_IN_BYTES)
-                    throw new Error("The content key must consist of 16 bytes of data, base64-encoded.");
             });
         }
     }
