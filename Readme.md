@@ -66,19 +66,22 @@ token configured according to the content manager's business rules.
 1. The player then sends the license request, together with the license token, 
 to the license service.
 1. License service authenticates the license token and generates a license 
-(according to the information in the license token), which is then returned to the player.
+(according to the information in the license token), which is then returned 
+to the player.
 1. Playback starts (provided that the content keys are valid and playback 
 rules are satisfied).
 
 ## Solution components
 
 The core Axinom DRM products are Axinom DRM Key Service and Axinom DRM License 
-Service. Both are offered as cloud services while Axinom DRM License Service is also available as an on-premises installation.
+Service. Both are offered as cloud services while Axinom DRM License Service 
+is also available as an on-premises installation.
 
 The remaining parts of a DRM-enabled solution must be composed of additional 
 Axinom or 3rd party products, or custom-developed components.
 
-In terms of freely available 3rd party playback applications, we recommend the following robust and reliable players:
+In terms of freely available 3rd party playback applications, we recommend the
+following robust and reliable players:
 * [Shaka Player](https://github.com/google/shaka-player)
 * [dash.js](https://github.com/Dash-Industry-Forum/dash.js)
 * [ExoPlayer](https://github.com/google/exoplayer) (Android) 
@@ -152,7 +155,8 @@ authorizes playback requests coming from the browser-side JavaScript code and
 returns license tokens. 
 * *Website/index.html* - the page loaded in the browser, including the 
 browser-side JavaScript code; it communicates with the catalog API and the 
-token service using REST web service calls; the website integrates Shaka Player for video playback.
+token service using REST web service calls; the website integrates Shaka 
+Player for video playback.
 
 ![](Images/Sample-Workflow.png)
 
@@ -378,7 +382,9 @@ content similar to the predefined "multikey" demo videos in
 In order to proceed, please ensure that the following prerequisites are 
 fulfilled:
 * Scenario 3 is completed and understood.
-* Make sure the input video has at least 720p resolution. Otherwise HD-track specific keys cannot be applied, and your content will end up being encrypted with fewer different keys.
+* Make sure the input video has at least 720p resolution. Otherwise HD-track 
+specific keys cannot be applied, and your content will end up being encrypted 
+with fewer different keys.
 
 Steps for multi-key content preparation:
 
@@ -414,8 +420,8 @@ manifests of the encrypted content with a text editor, you'll notice that now
 different tracks are associated with different content key IDs.
 
 1. Add a matching entry to *VideoDatabase.js*, similarly to scenario 3. 
-The only difference is that this time multiple Key IDs need to be specified 
-— all three that were used in the encryption of this video. 
+The only difference is that this time multiple Key IDs need to be 
+specified - all three that were used in the encryption of this video. 
 
     ```
     {
@@ -449,14 +455,15 @@ In a real-world scenario there are potentially many more aspects to consider.
 * Axinom DRM License Service and Key Service are highly flexible and can 
 accommodate to a wide range of scenarios:
 
-    * Axinom DRM can work in different modes – it supports working with key seeds as well as individual keys.
+    * Axinom DRM can work in different modes - it supports working with key 
+    seeds as well as individual keys.
 
     * Axinom DRM Key Service supports several key delivery protocols out of 
     the box, including AWS SPEKE and Google Widevine Common Encryption API
 
     * Axinom has complementary offerings that can help create a comprehensive 
-    video streaming solution. Axinom VIP – for encoding / packaging, Axinom 
-    Player SDK – for secure playback, Axinom CMS – for managing content.
+    video streaming solution: Axinom VIP - for encoding / packaging, Axinom 
+    Player SDK - for secure playback, and Axinom CMS - for managing content.
 
 * To keep the sample code straightforward, simplifications have been made. 
 The following additional aspects should be considered when planning a 
@@ -475,6 +482,12 @@ real-world deployment:
 
     * You must carefully plan the life cycle of license tokens to match your 
     business scenario. While the sample project requests a license token 
-    immediately before playback, this need not always be so. Some scenarios may benefit from long-lived license tokens generated well in advance of playback, thereby reducing network traffic. On the other hand, long-lived license tokens enable a greater degree of misuse if they are ever stolen; short 5-minute license tokens enable a stricter level of control for scenarios where that is a concern.
+    immediately before playback, this need not always be so. Some scenarios 
+    may benefit from long-lived license tokens generated well in advance of 
+    playback, thereby reducing network traffic. On the other hand, long-lived 
+    license tokens enable a greater degree of misuse if they are ever stolen; 
+    short 5-minute license tokens enable a stricter level of control for 
+    scenarios where that is a concern.
 
-[Contact us](mailto:info@axinom.com) to learn more about our offerings and to get support in setting up your production environment.
+[Contact us](mailto:info@axinom.com) to learn more about our offerings and to 
+get support in setting up your production environment.
