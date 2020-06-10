@@ -395,7 +395,7 @@ introduced *GenerateKeysUsingKeyService.js* script three times.
 Protection Information Exchange) document as input, which allows you to map 
 content keys to different tracks. Thorough CPIX knowledge or specialty tools 
 are not needed for this scenario. Just open the 
-[reference CPIX document](Resources\AxinomDemoVideo-MultiKey.xml) in a text 
+[reference CPIX document](Resources/AxinomDemoVideo-MultiKey.xml) in a text 
 editor and replace all content keys and their IDs with the ones that you just 
 generated and save the document.
 
