@@ -70,6 +70,7 @@
 					"license": {
 						"start_datetime": validFrom.toISOString(),
 						"expiration_datetime": validTo.toISOString(),
+						"allow_persistence": true
 					},
 
 					// The keys list will be filled separately by the next code block.
