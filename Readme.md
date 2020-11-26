@@ -8,10 +8,10 @@ The DRM technologies offered by Axinom are:
 * Microsoft PlayReady 
 * Apple FairPlay Streaming
 
-A separate repository also contains a simple implementation of an
-[Android frontend](https://github.com/Axinom/drm-quick-start-android) and 
+There are separate repositories that contain a simple implementation of an
+[Android frontend](https://github.com/Axinom/drm-sample-player-android) and
 [iOS frontend](https://github.com/Axinom/drm-quick-start-ios) that 
-interoperate with this sample project.
+also showcase the usage of Axinom DRM.
 
 # Axinom DRM overview
 
