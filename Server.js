@@ -22,9 +22,9 @@
     let catalogApi = require("./CatalogApi");
     app.use("/api/catalog", catalogApi.createRouter());
 
-    // At /api/authorization is the Secure Token Service.
-    let secureTokenService = require("./SecureTokenService");
-    app.use("/api/authorization", secureTokenService.createRouter());
+    // At /api/authorization is the Entitlement Service.
+    let entitlementService = require("./EntitlementService");
+    app.use("/api/authorization", entitlementService.createRouter());
 
     app.listen(port);
 

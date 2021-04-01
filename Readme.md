@@ -60,8 +60,8 @@ playback.
 1. The player notices the stream is protected by DRM and prepares for license 
 acquisiton by obtaining a license request (from a Content Decryption Module, 
 or CDM, integrated into the playback platform) based on the media metadata and 
-requests a license token from a Secure Token Service.
-1. The Secure Token Service authenticates the end-user and generates a license 
+requests a license token from the Entitlement Service.
+1. The Entitlement Service authenticates the end-user and generates a license 
 token configured according to the content manager's business rules. 
 1. The player then sends the license request, together with the license token, 
 to the license service.
@@ -146,11 +146,11 @@ add more.
 The main building blocks of the sample are:
 
 * *Server.js* - creates an HTTP server that publishes the website, the catalog 
-API and the Secure Token Service.
+API and the Entitlement Service.
 * *VideoDatabase.js* - defines the list of videos made available to the user.
 * *CatalogApi.js* - implements the catalog API that is used by browser-side 
 JavaScript code to obtain the list of videos.
-* *SecureTokenService.js* - implements the Secure Token Service - an API that 
+* *EntitlementService.js* - implements the Entitlement Service - an API that 
 authorizes playback requests coming from the browser-side JavaScript code and 
 returns license tokens. 
 * *Website/index.html* - the page loaded in the browser, including the 
@@ -173,14 +173,16 @@ videos are filtered by tags to only show those playable on the current
 browser.
 1. When the user clicks on a video link to start playback, the following will 
 take place.
-1. The browser-side JavaScript code requests a license token from the Secure 
-Token Service. In production, this service should also authorize the user.
-1. The token service grants a token for every request, as there is no need to 
-actually refuse playback in the sample scenarios. If the website requested 
-permission to play one of the pre-defined videos then the authorization service 
-simply returns a hardcoded license token (this is a special case to keep the 
-first sample scenario simple); other scenarios introduced below will use a 
-more realistic workflow, where a new token is generated upon each request.
+1. The browser-side JavaScript code requests a license token from the 
+Entitlement Service. In production, this service should also authorize the 
+user.
+1. The Entitlement Service grants a token for every request, as there is no
+need to actually refuse playback in the sample scenarios. If the website
+requested permission to play one of the pre-defined videos then the
+Entitlement Service simply returns a hardcoded license token (this is a special
+case to keep the first sample scenario simple); other scenarios introduced
+below will use a more realistic workflow, where a new token is generated upon
+each request.
 1. Upon receiving the license token, the browser-side JavaScript code 
 activates the embedded Shaka Player and instruct it to play the video, 
 providing both the video URL and the DRM configuration. For the rest of the 
@@ -237,7 +239,7 @@ real values from the Axinom DRM Fact Sheet**.
     secure the transfer of sensitive data. The signature will be checked by 
     the license service to authenticate the token and to verify its integrity, 
     making the token impossible to forge. See the comments in 
-    *SecureTokenService.js* for more details.
+    *EntitlementService.js* for more details.
 
     Having created the *Secrets.json* file, you should see a message about it 
     being loaded when you start the application.
@@ -256,7 +258,7 @@ prompt window.
 ## Understanding sample scenario 2
 
 The logic for generating license tokens is already provided in 
-*SecureTokenService.js* and this functionality is activated by the 
+*EntitlementService.js* and this functionality is activated by the 
 instructions above. In order to generate a license token, the token service 
 needs to know the IDs of all content keys that are to be made available to 
 the user. 
@@ -469,7 +471,7 @@ accommodate to a wide range of scenarios:
 The following additional aspects should be considered when planning a 
 real-world deployment:
 
-    * The Secure Token Service shown here authorizes every user for every 
+    * The Entitlement Service shown here authorizes every user for every 
     playback request and produces tokens with very relaxed playback 
     restrictions. Adjust this behaviour according to your business needs, so 
     that only the intended users can play back content under intended terms.

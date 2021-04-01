@@ -7,8 +7,8 @@ end
 Website -> "Catalog API": GET /api/catalog/videos
 Website <- "Catalog API": {video1, video2, ...}
 Website -> Website: Play video 1
-Website -> "Secure Token Service": GET /api/tokens/video1
-Website <- "Secure Token Service": {licenseToken}
+Website -> "Entitlement Service": GET /api/tokens/video1
+Website <- "Entitlement Service": {licenseToken}
 Website -> Player: Play video 1 {video1.url, licenseToken, [fairPlayCertificate]}
 Player -> "License Service": Get license {licenseToken}
 Player <- "License Service": {license}
