@@ -4,7 +4,7 @@
 <head>
     <title>Axinom DRM quick start demo player</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/shaka-player/2.5.6/shaka-player.compiled.debug.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.1.0/shaka-player.compiled.debug.js"></script>
     <style>
         video#videoPlayer {
             width: 640px;
@@ -45,7 +45,7 @@
             var fairPlayCertificateUrl = "https://vtb.axinom.com/FPScert/fairplay.cer";
 
             // Detect if we are using Safari. If yes, then only FairPlay is supported and we'll
-            // activate FairPlay-specific workflows. This means that, we will:
+            // activate FairPlay-specific workflows. This means that we will:
             // * Display only FairPlay-capable videos.
             // * Load the FairPlay certificate
             // * Assign a custom InitData transform to Shaka Player that extracts the Content ID
@@ -98,51 +98,12 @@
                                     'com.widevine.alpha': 'https://drm-widevine-licensing.axtest.net/AcquireLicense',
                                     'com.microsoft.playready': 'https://drm-playready-licensing.axtest.net/AcquireLicense',
                                     'com.apple.fps.1_0': 'https://drm-fairplay-licensing.axtest.net/AcquireLicense'
-                                },
-                                
-                                // By default, Shaka Player does extra base64 transformations to FairPlay license
-                                // requests and responses. Our FairPlay license services expects to receive and sends
-                                // plain unprocessed binary data. Setting "fairPlayTransform" to "false" achieves this.
-                                fairPlayTransform: false
+                                }
                             }
                         });
 
                         if (isSafariDetected === true) {
                             player.configure('drm.advanced.com\\.apple\\.fps\\.1_0.serverCertificate', fairPlayCertificate);
-
-                            player.configure('drm.initDataTransform', function(initData) {
-                                console.log("FairPlay InitData transform: trying to extact Asset ID from InitData.")
-                                
-                                // Shaka Player v2.5.6 has a bug that sends duplicate InitData in different formats.
-                                // The expected format starts with a 4-byte "InitData lenght" integer, followed by
-                                // a utf16 string in the form of "skd://<AssetID>", which comes from the HLS manifest
-                                // #EXT-X-KEY or #EXT-X-SESSION-KEY URI attribute value. 
-                                
-                                // Axinom expects the Asset ID part to contain the Key ID and, optionally, the video
-                                // encryption IV, in the form <KEY_ID_AS_GUID_STRING[:IV_AS_HEX]>. If the Asset ID is
-                                // in unexpected format, the license service will return an error describing what was
-                                // wrong.
-                                
-                                // Let's attempt to extract the InitData in the expected way. This can fail when
-                                // the duplicate erroneous version is presented. But this is OK - if  the correct
-                                // version is parsed successfully, playback will succeed.
-                                try {
-                                    // We don't need the first 16 bytes. This contains the 4-byte length value, plus
-                                    // the "skd://" prefix (12 bytes). The rest will be the Asset ID.
-                                    let assetIdArray = initData.slice(16, initData.length);
-                                    assetIdArray = new Uint16Array(assetIdArray.buffer);
-                                    let assetId = String.fromCharCode.apply(null, assetIdArray);
-                                    
-                                    console.log("Asset ID: " + assetId);
-                                    return shaka.util.FairPlayUtils.initDataTransform(initData, assetId, fairPlayCertificate);
-
-                                } catch {
-                                    // If the above fails, let's just return "null" AssetID. There will be an error even
-                                    // if we try to parse the unexpected InitData format correctly.
-                                    
-                                    return shaka.util.FairPlayUtils.initDataTransform(initData, null, fairPlayCertificate);
-                                }
-                            });
                         }
 
                         // Add the "X-AxDRM-Message" header, containing the license token, to the header
@@ -230,16 +191,7 @@
             }
 
             function onError(error) {
-                // Shaka Player, as of v2.5.6, has a FairPlay related bug that causes errors,
-                // but doesn't prevent playback. Let's reduce them to warnings. Issue links:
-                // * https://github.com/google/shaka-player/issues/2214
-                // * https://github.com/google/shaka-player/issues/2245
-                if (error.code === 6006 && isSafariDetected) {
-                    console.warn('Error code', error.code, 'object', error);
-                    console.warn('This error can occur due to a non-fatal FairPlay related bug in Shaka Player. The playback should still work.')
-                } else {
-                    console.error('Error code', error.code, 'object', error);
-                }
+                console.error('Error code', error.code, 'object', error);
             }
 
             // FairPlay-specific functionality.
