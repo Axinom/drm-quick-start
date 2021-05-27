@@ -276,9 +276,10 @@ To proceed, please ensure that the following prerequisites are fulfilled:
 performed.
 
 * *Makemedia*, a command-line encoder and media processing utility, is 
-downloaded from the Axinom DRM customer portal. This is a reference encoder 
-and media processing utility made available to you for use in evaluation 
-scenarios. 
+downloaded from 
+[Axinom Portal](https://portal.axinom.com/drm/documentation/Makemedia). This 
+is a reference encoder and media processing utility made available to you for 
+use in evaluation scenarios. 
     * Makemedia system requirements:
         * 64-bit Windows operating system (Windows 10 recommended)
         * .NET Framework 4.6 or newer
