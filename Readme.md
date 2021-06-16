@@ -305,7 +305,12 @@ Sheet:
     node GenerateKeyUsingKeyService.js --signer <Provider Name> --signing-key <64-character hex Signing Key> --signing-iv <32-character hex Signing IV>
     ```
 
-    ![](Images/Sample-GenerateKeyUsingKeyService.png)
+    * You should receive a `Key ID` and `Key` after executing this command. 
+    Example output for this script is shown below:
+        ```
+        Key ID: 60447277-19b2-4367-a1e0-da543aee2da0
+        Key: DnfNa6jat32yHlWbwnt7zQ==
+        ```
 
 1. Now you are ready to start creating the video. Open a command prompt window 
 and go to the location where you saved the Makemedia utility. There, execute 
