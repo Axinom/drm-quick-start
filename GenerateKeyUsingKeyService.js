@@ -20,7 +20,7 @@
 		return;
 	}
 	
-	let keyServerUrl = "https://key-server-management.axtest.net/api/WidevineProtectionInfo";
+	let keyServerUrl = "https://key-server-management.axprod.net/api/WidevineProtectionInfo";
 	
 	let contentId = Buffer.from(uuid.v4(), "ascii").toString("base64");
 	let signingKey = Buffer.from(program.signingKey, "hex");
