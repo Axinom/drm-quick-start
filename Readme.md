@@ -226,9 +226,11 @@ following `keys` list:
             }
         ]
     ```
-or you can create a license token for your video with the key and the keyID using 
-https://portal.axinom.com/mosaic/tools/entitlement-message and use it in the license
-token.
+or if you are using a sample video provided by Axinom, the key seed of the 
+tenant used to encode the content might be different. Hence, you can create a 
+license token for the video with the key and the keyID using 
+https://portal.axinom.com/mosaic/tools/entitlement-message and use it in the 
+video entry.
 
 1. Create a *Secrets.json* file based on the sample below and place it in 
 the same directory as *Server.js*. **Replace the communication key below with 
@@ -364,15 +366,6 @@ ID used in encrypting the video or a token with key and the keyID.
         ]
     }
     ```
-    or
-
-    ```
-    {
-        "name": "My video 1",
-        "url": "http://localhost:8120/Video1/Encrypted_Cenc/Manifest.mpd",
-        "licenseToken":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjogMSwiY29tX2tleV9pZCI6ICI0N2RhM2NlMC04ZjFlLTQ4NDYtYTUwZi1hZTc0MDAzY2Y0MmMiLCJtZXNzYWdlIjogeyAgInR5cGUiOiAiZW50aXRsZW1lbnRfbWVzc2FnZSIsICAidmVyc2lvbiI6IDIsICAiY29udGVudF9rZXlzX3NvdXJjZSI6IHsgICAgImlubGluZSI6IFsgICAgICB7ICAgICAgICAiaWQiOiAiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwgICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIgICAgICB9ICAgIF0gIH19fQ.OaOk2jS3KreIB4WCqBD4_0GI4S5Hb_yiWEORLRL-qCA"
-    }
-    ```
     
     Note: when evaluating FairPlay, e.g. on Safari, use the URL of the 
     HLS-CBCS manifest (*Encrypted_Cbcs/Manifest.m3u8*); otherwise use the 
@@ -462,16 +455,6 @@ specified - all three that were used in the encryption of this video.
         ]
     }
     ```
-or create a license token with the key/key ID pairs and add the entry to the 
-*VideoDatabase.js*
-
-```
-    {
-        "name": "My video 2",
-        "url": "http://localhost:8120/Video2/Encrypted_Cenc/Manifest.mpd",
-        "licenseToken": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjogMSwKImJlZ2luX2RhdGUiOiAiMjAwMC0wMS0wMVQxNToyNToxMSswMzowMCIsCiJleHBpcmF0aW9uX2RhdGUiOiAiMjAyNS0xMi0zMVQyMzo1OTo0MCswMzowMCIsCiJjb21fa2V5X2lkIjogIjQ3ZGEzY2UwLThmMWUtNDg0Ni1hNTBmLWFlNzQwMDNjZjQyYyIsCiJtZXNzYWdlIjogewogICJ0eXBlIjogImVudGl0bGVtZW50X21lc3NhZ2UiLAogICJ2ZXJzaW9uIjogMiwKICAibGljZW5zZSI6IHsKICAgICJkdXJhdGlvbiI6IDM2MDAKICB9LAogICJjb250ZW50X2tleXNfc291cmNlIjogewogICAgImlubGluZSI6IFsKICAgICAgewogICAgICAgICJpZCI6ICI5ZWI0MDUwZC1lNDRiLTQ4MDItOTMyZS0yN2Q3NTA4M2UyNjYiLAogICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIKICAgICAgfSwKICAgICAgewogICAgICAgICJpZCI6ICI5ZWI0MDUwZC1lNDRiLTQ4MDItOTMyZS0yN2Q3NTA4M2UyNjYiLAogICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIKICAgICAgfSwKICAgICAgewogICAgICAgICJpZCI6ICI5ZWI0MDUwZC1lNDRiLTQ4MDItOTMyZS0yN2Q3NTA4M2UyNjYiLAogICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIKICAgICAgfQogICAgXQogIH0KfX0.y6qywtAoVBVvePTD0pDC1HX3MSPTVwIQKPRymOHVGZ0"
-    }
-```
 
     Note: when evaluating FairPlay, e.g. on Safari, use the URL of the 
     HLS-CBCS manifest (*Encrypted_Cbcs/Manifest.m3u8*); otherwise use the 
