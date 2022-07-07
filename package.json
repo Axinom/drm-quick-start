@@ -10,7 +10,7 @@
     "commander": "^2.9.0",
     "express": "^4.13.4",
     "jsonwebtoken": "^8.4.0",
-    "moment": "^2.13.0",
+    "moment": "^2.29.4",
     "node-uuid": "^1.4.7",
     "xmlhttprequest": "^1.8.0"
   },
