@@ -228,7 +228,7 @@ following `keys` list:
     ```
 or if you are using a sample video provided by Axinom, the key seed of the 
 tenant used to encode the content might be different. Hence, you can create a 
-license token for the video with the key and the keyID using 
+license token for the video with the key ID and the encrypted Key using 
 https://portal.axinom.com/mosaic/tools/entitlement-message and use it in the 
 video entry.
 
