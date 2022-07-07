@@ -227,10 +227,17 @@ following `keys` list:
         ]
     ```
 or if you are using a sample video provided by Axinom, the key seed of the 
-tenant used to encode the content might be different. Hence, you can create a 
-license token for the video with the key ID and the encrypted Key using 
-https://portal.axinom.com/mosaic/tools/entitlement-message and use it in the 
-video entry.
+tenant that was used to encode the video will be different and you'll need 
+to explicitly generate and provide a token in the video entry( VideoDatabase.js )
+that contains the embedded encryption key for the media. We recommend to use the 
+https://portal.axinom.com/mosaic/tools/entitlement-message tool for token generation.
+```
+        {
+            "name": "Axinom demo video - single key (DASH; cenc)",
+            "url": "https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest.mpd",
+             "licenseToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjogMSwiY29tX2tleV9pZCI6ICI0N2RhM2NlMC04ZjFlLTQ4NDYtYTUwZi1hZTc0MDAzY2Y0MmMiLCJtZXNzYWdlIjogeyAgInR5cGUiOiAiZW50aXRsZW1lbnRfbWVzc2FnZSIsICAidmVyc2lvbiI6IDIsICAiY29udGVudF9rZXlzX3NvdXJjZSI6IHsgICAgImlubGluZSI6IFsgICAgICB7ICAgICAgICAiaWQiOiAiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwgICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIgICAgICB9ICAgIF0gIH19fQ.OaOk2jS3KreIB4WCqBD4_0GI4S5Hb_yiWEORLRL-qCA",
+        }
+```
 
 1. Create a *Secrets.json* file based on the sample below and place it in 
 the same directory as *Server.js*. **Replace the communication key below with 
