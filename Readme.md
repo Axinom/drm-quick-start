@@ -202,10 +202,11 @@ To understand the details, please explore the source code.
 In this scenario, sample project is going to be modified to generate a unique 
 license token upon every request, instead of returning a hardcoded one.
 
-[Axinom DRM evaluation account](http://drm.axinom.com/evaluation-account/) is
-needed in order to proceed. Upon signing up, you will receive a document 
-titled "Axinom DRM Service Fact Sheet" that will contain information required 
-below.
+[Axinom DRM evaluation account](https://portal.axinom.com/mosaic/free-trial/) is
+needed in order to proceed. Upon signing up, you will need to go to the "DRM" area 
+from [My Mosaic](https://portal.axinom.com/mosaic/my-mosaic/) and you can request for a DRM 
+tenant. With that you will receive a document containing DRM configuration 
+information required below.
 
 To modify the project for the second sample scenario: 
 1. Open *VideoDatabase.js* and pick one of the pre-made video entries, which 
@@ -215,7 +216,8 @@ is going to be modified and worked with for the rest of this scenario.
     * On Safari: "Axinom demo video - single key (HLS; cbcs)"
     * Other browsers: "Axinom demo video - single key (DASH; cenc)"
 
-1. Remove the hardcoded license token from the video and replace it with the 
+1. If you are using [Axinom Encoding](https://portal.axinom.com/mosaic/documentation/encoding),
+remove the hardcoded license token from the video and replace it with the 
 following `keys` list:
     ```
         "keys": [
@@ -224,6 +226,18 @@ following `keys` list:
             }
         ]
     ```
+or if you are using a sample video provided by Axinom, the key seed of the 
+tenant that was used to encode the video will be different and you'll need 
+to explicitly generate and provide a token in the video entry( VideoDatabase.js )
+that contains the embedded encryption key for the media. We recommend to use the 
+https://portal.axinom.com/mosaic/tools/entitlement-message tool for token generation.
+```
+        {
+            "name": "Axinom demo video - single key (DASH; cenc)",
+            "url": "https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest.mpd",
+             "licenseToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjogMSwiY29tX2tleV9pZCI6ICI0N2RhM2NlMC04ZjFlLTQ4NDYtYTUwZi1hZTc0MDAzY2Y0MmMiLCJtZXNzYWdlIjogeyAgInR5cGUiOiAiZW50aXRsZW1lbnRfbWVzc2FnZSIsICAidmVyc2lvbiI6IDIsICAiY29udGVudF9rZXlzX3NvdXJjZSI6IHsgICAgImlubGluZSI6IFsgICAgICB7ICAgICAgICAiaWQiOiAiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwgICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIgICAgICB9ICAgIF0gIH19fQ.OaOk2jS3KreIB4WCqBD4_0GI4S5Hb_yiWEORLRL-qCA",
+        }
+```
 
 1. Create a *Secrets.json* file based on the sample below and place it in 
 the same directory as *Server.js*. **Replace the communication key below with 
@@ -346,7 +360,7 @@ to 24 hours for full-length movies, though only minutes for short clips.
 
 1. Having created the video, add a matching entry to *VideoDatabase.js*. You 
 need to provide a video name, the URL to one of the manifest files and the Key 
-ID used in encrypting the video. 
+ID used in encrypting the video or a token with key and the keyID. 
 
     ```
     {
@@ -359,7 +373,7 @@ ID used in encrypting the video.
         ]
     }
     ```
-
+    
     Note: when evaluating FairPlay, e.g. on Safari, use the URL of the 
     HLS-CBCS manifest (*Encrypted_Cbcs/Manifest.m3u8*); otherwise use the 
     DASH-CENC manifest (*Encrypted_Cenc/Manifest.mpd*).
