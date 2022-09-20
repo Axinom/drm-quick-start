@@ -57,7 +57,7 @@
                 // This will prove to the license server that we have the right to play 
                 // the video and configure any playback restrictions.
 
-                $.getJSON("/quickstart/api/authorization/" + encodeURIComponent(video.name))
+                $.getJSON("/api/authorization/" + encodeURIComponent(video.name))
                 .done(function(licenseToken) {
                     // We got a license token! We are all set to start playback.
                     // We just pass it on to the player and have it take care of the rest.
@@ -137,7 +137,7 @@
             }
 
             // Let's first populate the video list.
-            $.getJSON("/quickstart/api/catalog/videos")
+            $.getJSON("/api/catalog/videos")
             .done(function(videos) {
                 console.log("Server provided " + videos.length + " videos.");
 
