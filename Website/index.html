@@ -4,7 +4,7 @@
 <head>
     <title>Axinom DRM quick start demo player</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/shaka-player/4.1.2/shaka-player.compiled.debug.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/shaka-player/4.2.1/shaka-player.compiled.debug.js"></script>
     <style>
         video#videoPlayer {
             width: 640px;
@@ -57,7 +57,7 @@
                 // This will prove to the license server that we have the right to play 
                 // the video and configure any playback restrictions.
 
-                $.getJSON("/api/authorization/" + encodeURIComponent(video.name))
+                $.getJSON("/quickstart/api/authorization/" + encodeURIComponent(video.name))
                 .done(function(licenseToken) {
                     // We got a license token! We are all set to start playback.
                     // We just pass it on to the player and have it take care of the rest.
@@ -137,7 +137,7 @@
             }
 
             // Let's first populate the video list.
-            $.getJSON("/api/catalog/videos")
+            $.getJSON("/quickstart/api/catalog/videos")
             .done(function(videos) {
                 console.log("Server provided " + videos.length + " videos.");
 
