@@ -88,25 +88,15 @@
                                     'com.widevine.alpha': 'https://drm-widevine-licensing.axprod.net/AcquireLicense',
                                     'com.microsoft.playready': 'https://drm-playready-licensing.axprod.net/AcquireLicense',
                                     'com.apple.fps': 'https://drm-fairplay-licensing.axprod.net/AcquireLicense'
+                                },
+                                advanced: {
+                                    'com.apple.fps': {
+                                        'serverCertificateUri': fairPlayCertificateUrl
+                                    }
                                 }
                             }
                         });
-
-                        // Configure the server certificate for FairPlay.
-                        if (isSafariDetected === true) {
-                            console.log("Browser supports FairPlay.");
-
-                            player.configure({
-                                drm: {
-                                    advanced: {
-                                        'com.apple.fps': {
-                                            'serverCertificateUri': fairPlayCertificateUrl
-                                        }
-                                    }
-                                }
-                            });
-                        }
-
+                       
                         // Add the "X-AxDRM-Message" header, containing the license token, to the header
                         // of all license requests.
                         player.getNetworkingEngine().registerRequestFilter(function(type, request) {
