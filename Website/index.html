@@ -4,7 +4,7 @@
 <head>
     <title>Axinom DRM quick start demo player</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.1.0/shaka-player.compiled.debug.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/shaka-player/4.2.1/shaka-player.compiled.debug.js"></script>
     <style>
         video#videoPlayer {
             width: 640px;
@@ -27,7 +27,7 @@
         <p>Refresh the page to go back to the video catalog.</p>
     </div>
     <div>
-        <p>Supported browsers: Google Chrome, Mozilla Firefox, Microsoft Edge, Internet Explorer 11, Apple Safari</p>
+        <p>Supported browsers: Google Chrome, Mozilla Firefox, Microsoft Edge, Internet Explorer 11, Apple Safari 13+</p>
         <p>Note: multi-key demo videos are not supported on IE11.</p>
     </div>
 
@@ -41,20 +41,10 @@
 
             // FairPlay specific variables. These will be set on Safari.
             var isSafariDetected = false;
-            var fairPlayCertificate = null;
             var fairPlayCertificateUrl = "https://vtb.axinom.com/FPScert/fairplay.cer";
 
-            // Detect if we are using Safari. If yes, then only FairPlay is supported and we'll
-            // activate FairPlay-specific workflows. This means that we will:
-            // * Display only FairPlay-capable videos.
-            // * Load the FairPlay certificate
-            // * Assign a custom InitData transform to Shaka Player that extracts the Content ID
-            //   from HLS manifest in the form that's expected by our FairPlay license services.
-            if (typeof WebKitMediaKeys === "function" && WebKitMediaKeys.isTypeSupported("com.apple.fps.1_0", "video/mp4"))
-            {
-                console.log("FairPlay support detected.");
-                isSafariDetected = true;
-            }
+            // Detect if the browser is Safari.
+            isSafariDetected = navigator.vendor.includes('Apple');
 
             // Called when the user clicks on the link to play a video.
             function playVideo(video) {
@@ -97,15 +87,16 @@
                                 servers: {
                                     'com.widevine.alpha': 'https://drm-widevine-licensing.axprod.net/AcquireLicense',
                                     'com.microsoft.playready': 'https://drm-playready-licensing.axprod.net/AcquireLicense',
-                                    'com.apple.fps.1_0': 'https://drm-fairplay-licensing.axprod.net/AcquireLicense'
+                                    'com.apple.fps': 'https://drm-fairplay-licensing.axprod.net/AcquireLicense'
+                                },
+                                advanced: {
+                                    'com.apple.fps': {
+                                        'serverCertificateUri': fairPlayCertificateUrl
+                                    }
                                 }
                             }
                         });
-
-                        if (isSafariDetected === true) {
-                            player.configure('drm.advanced.com\\.apple\\.fps\\.1_0.serverCertificate', fairPlayCertificate);
-                        }
-
+                       
                         // Add the "X-AxDRM-Message" header, containing the license token, to the header
                         // of all license requests.
                         player.getNetworkingEngine().registerRequestFilter(function(type, request) {
@@ -113,7 +104,7 @@
                                 // This is the specific header name and value the server wants:
                                 request.headers['X-AxDRM-Message'] = licenseToken;
                             }
-                            
+
                         });
 
                         // Try to load a manifest. This is an asynchronous process.
@@ -121,7 +112,7 @@
                             // This runs if the asynchronous load is successful.
                             // onError() is executed if the asynchronous load fails.
                             console.log('The video has now been loaded!');
-                        }).catch(onError);  
+                        }).catch(onError);
                     } else {
                         // This browser does not have the minimum set of APIs we need.
                         console.error('Browser not supported!');
@@ -157,7 +148,7 @@
                         console.log("Video \"" + video.name + "\" is not supported on current platform, hiding it...");
                         return;
                     }
-                    
+
                     console.log("Video \"" + video.name + "\" is at URL " + video.url);
 
                     // This makes the list item for this video.
@@ -173,18 +164,13 @@
 
                 console.log("Loading complete.");
 
-                // Load the FairPlay certificate if Safari is detected.
-                if (isSafariDetected) {
-                    loadFairPlayCertificate();
-                } else {
-                    $loadingPanel.hide();
-                    $videoListPanel.show();
-                }
+                $loadingPanel.hide();
+                $videoListPanel.show();
             })
             .fail(function() {
                 console.log("API call to get video catalog failed!");
             });
-        
+
             // Shaka error handlers.
             function onErrorEvent(event) {
                 onError(event.detail);
@@ -194,32 +180,6 @@
                 console.error('Error code', error.code, 'object', error);
             }
 
-            // FairPlay-specific functionality.
-            function loadFairPlayCertificate() {
-                console.log("Requesting FairPlay certificate from " + fairPlayCertificateUrl)
-                var request = new XMLHttpRequest();
-                request.responseType = 'arraybuffer';
-                request.addEventListener('load', onFairPlayCertificateLoaded, false);
-                request.addEventListener('error', onFairPlayCertificateError, false);
-                request.open('GET', fairPlayCertificateUrl, true);
-                request.setRequestHeader('Pragma', 'Cache-Control: no-cache');
-                request.setRequestHeader("Cache-Control", "max-age=0");
-                request.send();
-            }
-        
-            function onFairPlayCertificateLoaded(event) {
-                console.log("FairPlay certificate received.");
-                var request = event.target;
-                fairPlayCertificate = new Uint8Array(request.response);
-                
-                $loadingPanel.hide();
-                $videoListPanel.show();
-            }
-            
-            function onFairPlayCertificateError(event) {
-                console.error('FairPlay certificate request failed.');
-            } 
-        
         });
     </script>
 </body>
