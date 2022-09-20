@@ -87,7 +87,7 @@
                                 servers: {
                                     'com.widevine.alpha': 'https://drm-widevine-licensing.axprod.net/AcquireLicense',
                                     'com.microsoft.playready': 'https://drm-playready-licensing.axprod.net/AcquireLicense',
-                                    'com.apple.fps': 'https://drm-fairplay-licensing.axtest.net/AcquireLicense'
+                                    'com.apple.fps': 'https://drm-fairplay-licensing.axprod.net/AcquireLicense'
                                 }
                             }
                         });
@@ -109,7 +109,7 @@
 
                         // Add the "X-AxDRM-Message" header, containing the license token, to the header
                         // of all license requests.
-                        player.getNetworkingEngine().registerRequestFilter(function (type, request) {
+                        player.getNetworkingEngine().registerRequestFilter(function(type, request) {
                             if (type == shaka.net.NetworkingEngine.RequestType.LICENSE) {
                                 // This is the specific header name and value the server wants:
                                 request.headers['X-AxDRM-Message'] = licenseToken;
@@ -145,7 +145,7 @@
                     // On Safari let's display only videos that support FairPlay. On other browsers,
                     // let's just show everything else since our other demo videos support both
                     // Widevine and PlayReady.
-                    if ((!video.tags && isSafariDetected) || (video.tags && video.tags.filter(function (tag) {
+                    if ((!video.tags && isSafariDetected) || (video.tags && video.tags.filter(function(tag) {
                         tag = tag.toLowerCase();
                         if (isSafariDetected && tag === "fairplay") {
                             return true;
