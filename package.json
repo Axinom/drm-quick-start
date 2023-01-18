@@ -9,7 +9,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "express": "^4.13.4",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.13.0",
     "node-uuid": "^1.4.7",
     "xmlhttprequest": "^1.8.0"
