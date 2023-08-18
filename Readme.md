@@ -408,7 +408,7 @@ Steps for multi-key content preparation:
 
 1. While Setting up the Processing Profile as mentioned in the scenario 3, you
 will have to select the *DRM Protection* to Multi Keys.
-![](Images/DRM protection selection.png)
+![](Images/DRM-protection-selection.png)
 
 1. Then run the encoding process.
 
