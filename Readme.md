@@ -289,14 +289,8 @@ To proceed, please ensure that the following prerequisites are fulfilled:
 * The sample project modifications described in scenario 2 are already 
 performed.
 
-* *Makemedia*, a command-line encoder and media processing utility, is 
-downloaded from 
-[Axinom Portal](https://portal.axinom.com/drm/documentation/Makemedia). This 
-is a reference encoder and media processing utility made available to you for 
-use in evaluation scenarios. 
-    * Makemedia system requirements:
-        * 64-bit Windows operating system (Windows 10 recommended)
-        * .NET Framework 4.6 or newer
+* Makesure you have access to the Mosaic Management system. You can acquire 
+a Management system for yourself via https://portal.axinom.com/mosaic/my-mosaic
 
 * Ensure that you have an MP4 or MOV file containing both video and audio. 
 You can download some free test content in this format from the 
@@ -307,60 +301,64 @@ media processing time.
 The steps below will transform this your video file into a format suitable 
 for playback:
 
-1. Before you do anything with the video, you will need to generate a content 
-key. The sample project includes a simple command line-application, 
-*GenerateKeyUsingKeyService.js*, for generating a content key using Axinom DRM 
-Key Service, based on your default key seed. To use it, execute the 
-following command in the project directory, while replacing parameter values 
-with the ones specified in the "Key Service" section of your Axinom DRM Fact 
-Sheet:
+1. Create Storage for an Input Storage for Axinom Encoding 
+(this is where the source material will be uploaded to) and an Output Storage 
+(this is where Axinom Encoding) will store the encoding results.
+2. Set up an Acquisition and a Publishing Profile.
+3. Set up a Processing Profile.
+4. Upload a video to the Input Storage (use a subfolder for each video).
+5. Start encoding. Wait until encoding is finished.
+
+### Create storage for Input
+
+The simplest way to create a Storage is using a Mosaic Hosting Service.
+
+Follow instructions under 
+[Storage with Mosaic Hosting Service](https://portal.axinom.com/mosaic/documentation/storage-with-mosaic-hosting-service)
+
+With a few clicks you will get a [Storage Account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview) in Microsoft Azure, which you can use from Axinom Mosaic, but also directly using tools such as[Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/).
     
-    ```
-    node GenerateKeyUsingKeyService.js --signer <Provider Name> --signing-key <64-character hex Signing Key> --signing-iv <32-character hex Signing IV>
-    ```
+### Set up an Acquisition and a Publishing Profile
 
-    * You should receive a `Key ID` and `Key` after executing this command. 
-    Example output for this script is shown below:
-        ```
-        Key ID: 60447277-19b2-4367-a1e0-da543aee2da0
-        Key: DnfNa6jat32yHlWbwnt7zQ==
-        ```
+Log in to your Mosaic Management System and follow instructions under 
+[Set up Encoding Profiles](https://portal.axinom.com/mosaic/documentation/media/set-up-encoding-profiles). 
+As a storage provider choose "Microsoft Azure". All the required configuration (such as, account name, account key, SAS token) you can copy from the previous step (Storage properties).
 
-1. Now you are ready to start creating the video. Open a command prompt window 
-and go to the location where you saved the Makemedia utility. There, execute 
-the following command, replacing the parameter values with your own: 
+Your secrets, such as your account key, shall be entered encrypted (with a certificate of Axinom Encoding), so that only Axinom Encoding can access your storage. To encrypt credentials, use [Credentials Protection Tool](https://portal.axinom.com/mosaic/tools/encoding-credentials-protection).
 
-    ```
-    Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video1 --avc --keyid 60447277-19b2-4367-a1e0-da543aee2da0 --key DnfNa6jat32yHlWbwnt7zQ==
-    ```
+### Set up a Processing Profile
 
-    ![](Images/Sample-Makemedia.png)
+Log in to your Mosaic Management System. You will find Processing Profiles under Settings / Video Encoding.
 
-    Above command will create H264 CMAF content with CENC and CBCS encryption, 
-    together with DASH and HLS manifests: 
-    * All DASH content will contain Widevine and PlayReady signalling. 
-    * HLS-CBCS content will contain both FairPlay and Widevine signalling.
-    * HLS-CENC content will contain Widevine signalling.
-    
-1. Wait for the video to be encoded, encrypted and packaged. This may take up 
-to 24 hours for full-length movies, though only minutes for short clips. 
+You can create a new profile or edit the DEFAULT profile. The properties here impact the encoding process. check [Processing Profile](https://portal.axinom.com/mosaic/documentation/media/set-up-encoding-profiles#_processing_profile) document to have more understanding about the each property.
 
-    The output location will have three subdirectories: *Clear*, 
-    Encrypted_Cenc* and *Encrypted_Cbcs*. The clear variant is generated for 
-    diagnostic and troubleshooting purposes. If you wish to omit it, add 
-    *--noclear* attribute to the command.
+We recommend for the start leaving all values at their defaults. You can experiment with them later.
 
-    ![](Images/Sample-ClearAndEncrypted.png)
+### Upload the video
 
-    The sample project website will correctly serve videos if the output files 
-    are placed under the *Website* directory, as in the above example (it's 
-    possible to use external servers but as web servers require some 
-    configuration in order to correctly serve videos, using the sample project 
-    is the easiest option to start with).
+Upload the video to your Input Storage. Select the container video-input, create a subfolder for your video and upload the .mp4 file there. Just a single .mp4 file is enough.
 
-1. Having created the video, add a matching entry to *VideoDatabase.js*. You 
-need to provide a video name, the URL to one of the manifest files and the Key 
-ID used in encrypting the video or a token with key and the keyID. 
+To upload a file to your storage you can use a tool such as Azure Storage Explorer.
+
+Alternatively, you can upload files directly in Axinom Portal. Go to My Mosaic / Encoding and select "Upload a Source Video". This module uploads files to your storage previously created with the Mosaic Hosting Service.
+
+![](Images/Portal-upload-video.png)
+
+### Encode the video
+
+1. To start encoding follow the steps below:
+2. Log in to your Mosaic Management System.
+3. Go to "Videos", then "New". You will get a list of folder in your configured Input Storage.
+4. Select the folder with your video
+5. Click Start encoding.
+
+Encoding process takes some time (the longer the video, the longer the process). You can observe the progress looking at the logs, accessible from the respective station.
+
+Once encoding is finished, you can copy the link to the DASH manifest and play it with any DASH-capable video player.
+
+### Add the video details to *VideoDatabase.js*
+
+Having created the video, add a matching entry to VideoDatabase.js. You need to provide a video name, the URL to one of the manifest files and the Key ID used in encrypting the video or a token with key and the keyID.
 
     ```
     {
@@ -373,12 +371,9 @@ ID used in encrypting the video or a token with key and the keyID.
         ]
     }
     ```
-    
-    Note: when evaluating FairPlay, e.g. on Safari, use the URL of the 
-    HLS-CBCS manifest (*Encrypted_Cbcs/Manifest.m3u8*); otherwise use the 
-    DASH-CENC manifest (*Encrypted_Cenc/Manifest.mpd*).
+Note: when evaluating FairPlay, e.g. on Safari, use the URL of the HLS-CBCS manifest (Encrypted_Cbcs/Manifest.m3u8); otherwise use the DASH-CENC manifest (Encrypted_Cenc/Manifest.mpd).
 
-1. That's it! You can now start the application, open the website and play 
+That's it! You can now start the application, open the website and play 
 your video!
 
 If you encounter any difficulties in getting the demo video to play, inspect 
@@ -396,7 +391,8 @@ When working with high-value content, content owners may require the usage of
 different keys for different tracks and quality levels. 
 
 Current scenario, very similar to the previous 3rd scenario, demonstrates how 
-to prepare multi-key content. It will use Makemedia to create multi-key 
+to prepare multi-key content. It will use UI for all operations 
+(Mosaic Management System) to create multi-key 
 content similar to the predefined "multikey" demo videos in 
 *VideoDatabase.js*, where the FHD and HD tracks (1080p and 720p), SD tracks 
 (480p, 360p and 288p) and the audio track are encrypted with different keys. 
@@ -410,31 +406,11 @@ with fewer different keys.
 
 Steps for multi-key content preparation:
 
-1. Generate three separate key/key ID pairs by running the previously 
-introduced *GenerateKeysUsingKeyService.js* script three times.  
+1. While Setting up the Processing Profile as mentioned in the scenario 3, you
+will have to select the *DRM Protection* to Multi Keys.
+![](Images/DRM protection selection.png)
 
-1. For multi-key content generation, Makemedia requires a CPIX (Content 
-Protection Information Exchange) document as input, which allows you to map 
-content keys to different tracks. Thorough CPIX knowledge or specialty tools 
-are not needed for this scenario. Just open the 
-[reference CPIX document](Resources/AxinomDemoVideo-MultiKey.xml) in a text 
-editor and replace all content keys and their IDs with the ones that you just 
-generated and save the document.
-
-    For more information on CPIX, refer to 
-    [CPIX documentation](https://dashif.org/docs/CPIX2.2/Cpix.html). You 
-    may also take a look at the .NET [Axinom CPIX library](https://github.com/Axinom/cpix).
-
-1. Now you are ready to create the multi-key video. You can use the same input 
-video as in scenario 3. Open a command prompt window, go to the location 
-where you saved the Makemedia utility and execute the following command, 
-replacing the parameter values with your own: 
-
-    ```
-    Makemedia.exe --input C:\path\to\your\video.mp4 --output C:\source\drm-quick-start\Website\Video2 --avc --cpix="C:\source\drm-quick-start\Resources\AxinomDemoVideo-MultiKey.xml"
-    ```
-
-    ![](Images/Sample-Makemedia-Cpix.png)
+1. Then run the encoding process.
 
 1. Wait for the video to be processed. When finished, the output location will 
 have similar contents as in scenario 3. However, if you open the HLS or DASH 
