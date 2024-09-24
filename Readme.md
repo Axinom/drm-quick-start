@@ -216,7 +216,7 @@ is going to be modified and worked with for the rest of this scenario.
     * On Safari: "Axinom demo video - single key (HLS; cbcs)"
     * Other browsers: "Axinom demo video - single key (DASH; cenc)"
 
-1. If you are using [Axinom Encoding](https://portal.axinom.com/mosaic/documentation/encoding),
+1. If you are using [Axinom Encoding](https://docs.axinom.com/services/encoding),
 remove the hardcoded license token from the video and replace it with the 
 following `keys` list:
     ```
@@ -314,14 +314,14 @@ for playback:
 The simplest way to create a Storage is using a Mosaic Hosting Service.
 
 Follow instructions under 
-[Storage with Mosaic Hosting Service](https://portal.axinom.com/mosaic/documentation/storage-with-mosaic-hosting-service)
+[Storage with Mosaic Hosting Service](https://docs.axinom.com/platform/hosting/storage-with-mosaic-hosting-service/)
 
 With a few clicks you will get a [Storage Account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview) in Microsoft Azure, which you can use from Axinom Mosaic, but also directly using tools such as[Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/).
     
 ### Set up an Acquisition and a Publishing Profile
 
 Log in to your Mosaic Management System and follow instructions under 
-[Set up Encoding Profiles](https://portal.axinom.com/mosaic/documentation/media/set-up-encoding-profiles). 
+[Set up Encoding Profiles](https://docs.axinom.com/services/video/setup-encoding-profiles/). 
 As a storage provider choose "Microsoft Azure". All the required configuration (such as, account name, account key, SAS token) you can copy from the previous step (Storage properties).
 
 Your secrets, such as your account key, shall be entered encrypted (with a certificate of Axinom Encoding), so that only Axinom Encoding can access your storage. To encrypt credentials, use [Credentials Protection Tool](https://portal.axinom.com/mosaic/tools/encoding-credentials-protection).
@@ -330,7 +330,7 @@ Your secrets, such as your account key, shall be entered encrypted (with a certi
 
 Log in to your Mosaic Management System. You will find Processing Profiles under Settings / Video Encoding.
 
-You can create a new profile or edit the DEFAULT profile. The properties here impact the encoding process. check [Processing Profile](https://portal.axinom.com/mosaic/documentation/media/set-up-encoding-profiles#_processing_profile) document to have more understanding about the each property.
+You can create a new profile or edit the DEFAULT profile. The properties here impact the encoding process. check [Processing Profile](https://docs.axinom.com/services/video/setup-encoding-profiles/#processing-profile) document to have more understanding about the each property.
 
 We recommend for the start leaving all values at their defaults. You can experiment with them later.
 
