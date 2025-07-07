@@ -1,3 +1,5 @@
+const { json } = require("stream/consumers");
+
 (function () {
 	"use strict";
 
@@ -6,11 +8,60 @@
 	let secretManagement = require("./SecretManagement");
 	let jwt = require("jsonwebtoken");
 	let crypto = require("crypto");
-	let uuid = require("node-uuid");
+	const { validate, parse } = require('uuid');
 	let moment = require("moment");
 
 	const NO_SUCH_VIDEO_STATUS_CODE = 400;
 	const NEED_TO_KNOW_SECRETS_STATUS_CODE = 500;
+
+	const secrets = secretManagement.getSecrets();
+	const communicationKeyAsBuffer = Buffer.from(secrets.communicationKey, "base64");
+
+	
+	function generateEncryptedKey(keyIdBase64, contentKeyBase64) {
+
+		const key = Buffer.from(contentKeyBase64, 'base64'); // Content key, 16 bytes
+		const iv = convertToIv(keyIdBase64); // IV is keyId in big-endian byte order (16 bytes)
+
+		console.log('key.length',key.length);
+
+		if (key.length !== 16) throw new Error("Content key must be 16 bytes.");
+		if (iv.length !== 16) throw new Error("IV must be 16 bytes.");
+		if (communicationKeyAsBuffer.length !== 32) throw new Error("Communication key must be 32 bytes.");
+
+		const cipher = crypto.createCipheriv('aes-256-cbc', communicationKeyAsBuffer, iv);
+		cipher.setAutoPadding(false); // No padding as required
+		const encrypted = Buffer.concat([cipher.update(key), cipher.final()]);
+
+		return encrypted.toString('base64');
+	}
+
+	function convertToIv(input) {
+		if (typeof input !== 'string') {
+			throw new TypeError(`Expected keyId to be a string. Got: ${typeof input}`);
+		}
+
+		// Check if it's a UUID string
+		if (validate(input)) {
+			return Buffer.from(parse(input)); // always 16 bytes
+		}
+
+		// Try treating as base64
+		let raw;
+		try {
+			raw = Buffer.from(input, 'base64');
+		} catch (e) {
+			throw new Error(`Invalid base64 input: ${input}`);
+		}
+
+		if (raw.length === 16) {
+			return raw;
+		} else if (raw.length > 16) {
+			return raw.slice(0, 16);
+		} else {
+			throw new Error(`Decoded IV too short: ${raw.length} bytes. Must be at least 16.`);
+		}
+	}
 
 	module.exports = {
 		"createRouter": function createRouter() {
@@ -105,8 +156,16 @@
 					// key usage policy.
 					let inlineKey = {
 						"id": key.keyId,
-						"usage_policy": "Policy A"		
-					} 
+						"usage_policy": "Policy A"
+					};
+
+					if (key.key) {
+						let encryptedKey = generateEncryptedKey(
+							key.keyId,      // base64-encoded Key ID (must decode to 16 bytes)
+							key.key
+						);
+						inlineKey["encrypted_key"] = encryptedKey;
+					}
 
 					message.content_keys_source.inline.push(inlineKey);
 				});

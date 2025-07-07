@@ -216,28 +216,17 @@ is going to be modified and worked with for the rest of this scenario.
     * On Safari: "Axinom demo video - single key (HLS; cbcs)"
     * Other browsers: "Axinom demo video - single key (DASH; cenc)"
 
-1. If you are using [Axinom Encoding](https://docs.axinom.com/services/encoding),
-remove the hardcoded license token from the video and replace it with the 
+1. Remove the hardcoded license token from the video and replace it with the 
 following `keys` list:
     ```
         "keys": [
-            {
-                "keyId": "211ac1dc-c8a2-4575-baf7-fa4ba56c38ac"
-            }
-        ]
+                {
+                    "keyId": "4060a865-8878-4267-9cbf-91ae5bae1e72",
+                    "key": "/DU0CDcxDMD7U96X4ipp4A=="
+                }
+            ]
     ```
-or if you are using a sample video provided by Axinom, the key seed of the 
-tenant that was used to encode the video will be different and you'll need 
-to explicitly generate and provide a token in the video entry( VideoDatabase.js )
-that contains the embedded encryption key for the media. We recommend to use the 
-https://portal.axinom.com/mosaic/tools/entitlement-message tool for token generation.
-```
-        {
-            "name": "Axinom demo video - single key (DASH; cenc)",
-            "url": "https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest.mpd",
-             "licenseToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjogMSwiY29tX2tleV9pZCI6ICI0N2RhM2NlMC04ZjFlLTQ4NDYtYTUwZi1hZTc0MDAzY2Y0MmMiLCJtZXNzYWdlIjogeyAgInR5cGUiOiAiZW50aXRsZW1lbnRfbWVzc2FnZSIsICAidmVyc2lvbiI6IDIsICAiY29udGVudF9rZXlzX3NvdXJjZSI6IHsgICAgImlubGluZSI6IFsgICAgICB7ICAgICAgICAiaWQiOiAiOWViNDA1MGQtZTQ0Yi00ODAyLTkzMmUtMjdkNzUwODNlMjY2IiwgICAgICAgICJlbmNyeXB0ZWRfa2V5IjogIjgwOWxkUzVYM1VqU29ON1ovMjN6aFE9PSIgICAgICB9ICAgIF0gIH19fQ.OaOk2jS3KreIB4WCqBD4_0GI4S5Hb_yiWEORLRL-qCA",
-        }
-```
+    You can find the keys for videos mentioned in the *VideoDatabase.js* file from [Public Test Vectors]https://github.com/Axinom/public-test-vectors/tree/master?tab=readme-ov-file#v10.
 
 1. Create a *Secrets.json* file based on the sample below and place it in 
 the same directory as *Server.js*. **Replace the communication key below with 
@@ -359,11 +348,11 @@ Once encoding is finished, you can copy the link to the DASH manifest and play i
 ### Add the video details to *VideoDatabase.js*
 
 Having created the video, add a matching entry to VideoDatabase.js. You need to provide a video name, the URL to one of the manifest files and the Key ID used in encrypting the video or a token with key and the keyID.
-
+If you used the same DRM account in the management system, you don't need to add the content key in the *VideoDatabase.js*. Because since the license token is signed with the same DRM tenant's communication key pair, the License service will generate the content key.
     ```
     {
         "name": "My video 1",
-        "url": "http://localhost:8120/Video1/Encrypted_Cenc/Manifest.mpd",
+        "url": "<Your_Video_URL>/Manifest.mpd",
         "keys": [
             {
                 "keyId": "60447277-19b2-4367-a1e0-da543aee2da0"
@@ -424,7 +413,7 @@ specified - all three that were used in the encryption of this video.
     ```
     {
         "name": "My video 2",
-        "url": "http://localhost:8120/Video2/Encrypted_Cenc/Manifest.mpd",
+        "url": "<Your_Video_URL>/Manifest.mpd",
         "keys": [
             {
                 "keyId": "f3d588c7-c17a-4033-9035-8db317390be6"

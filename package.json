@@ -11,7 +11,7 @@
     "express": "^4.13.4",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.13.0",
-    "node-uuid": "^1.4.7",
+    "uuid": "^11.1.0",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
