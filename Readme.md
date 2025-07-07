@@ -221,8 +221,8 @@ following `keys` list:
     ```
         "keys": [
                 {
-                    "keyId": "4060a865-8878-4267-9cbf-91ae5bae1e72",
-                    "key": "/DU0CDcxDMD7U96X4ipp4A=="
+                    "keyId": "302f80dd-411e-4886-bca5-bb1f8018a024",
+                    "key": "FbKq+Qbr7GMJ1A+RKJEnuA=="
                 }
             ]
     ```
