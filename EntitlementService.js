@@ -13,12 +13,13 @@ const { json } = require("stream/consumers");
 
 	const NO_SUCH_VIDEO_STATUS_CODE = 400;
 	const NEED_TO_KNOW_SECRETS_STATUS_CODE = 500;
-
-	const secrets = secretManagement.getSecrets();
-	const communicationKeyAsBuffer = Buffer.from(secrets.communicationKey, "base64");
-
 	
 	function generateEncryptedKey(keyIdBase64, contentKeyBase64) {
+		const secrets = secretManagement.getSecrets();
+		if (!secrets || !secrets.communicationKey) {
+			throw new Error("Secrets are not available. Cannot generate encrypted key.");
+		}
+		const communicationKeyAsBuffer = Buffer.from(secrets.communicationKey, "base64");
 
 		const key = Buffer.from(contentKeyBase64, 'base64'); // Content key, 16 bytes
 		const iv = convertToIv(keyIdBase64); // IV is keyId in big-endian byte order (16 bytes)
