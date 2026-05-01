@@ -15,7 +15,7 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "eslint": "^5.11.1",
+    "eslint": "^9.39.1",
     "eslint-config-axinom": "^1.0.3"
   },
   "eslintConfig": {
