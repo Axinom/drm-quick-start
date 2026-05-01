@@ -8,7 +8,7 @@
   "repository": "https://github.com/Axinom/drm-quick-start",
   "dependencies": {
     "commander": "^2.9.0",
-    "express": "^4.13.4",
+    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.13.0",
     "uuid": "^11.1.0",
